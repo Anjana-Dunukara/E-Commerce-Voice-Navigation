@@ -164,20 +164,20 @@ exports.getProductsByQueries = async (req, res) => {
 
 exports.addProduct = async (req, res) => {
   try {
-    const newProduct = await Product.create(JSON.stringify(req.body));
+    const newProduct = await Product.create(req.body);
     res.status(201).json({
       newProduct,
     });
   } catch (error) {
+    console.error("Error adding product:", error);
     res.status(400).json({
       status: "failed",
-      error,
+      error: error.message,
     });
   }
 };
 
 exports.updateProduct = async (req, res) => {
-  console.log(req.body);
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,

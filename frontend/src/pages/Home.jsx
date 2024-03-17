@@ -36,7 +36,7 @@ const Home = () => {
 
   return (
     <Box>
-      <Box display="flex" justifyContent="center">
+      <Box display="flex" justifyContent="center" className="carousel">
         <Carousel />
       </Box>
       <Box bg="facebook.500" mt={{ base: 5, md: 0 }}>

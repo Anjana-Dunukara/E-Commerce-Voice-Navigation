@@ -38,21 +38,12 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
 
   const { values, isValid, handleChange, handleSubmit, resetForm } = useFormik({
     initialValues: {
-<<<<<<< HEAD
-      name: '',
-      description: '',
-      category: '',
-      color: '',
-      gender: '',
-      sizes: ['XS', 'S', 'M', 'L', 'XL'],
-=======
       name: "",
       description: "",
       category: "",
       color: "",
       condition: "",
       shipingLocations: ["Sri Lanka", "China", "UK", "USA"],
->>>>>>> upstream/main
       price: 0,
     },
     onSubmit: (values) => {

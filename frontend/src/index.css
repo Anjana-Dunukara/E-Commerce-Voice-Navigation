@@ -11,6 +11,12 @@ body {
   position: relative;
 }
 
+/* .carousel {
+  margin-left: 23%;
+  width: 50%;
+  height: 50%;
+} */
+
 a {
   text-decoration: none;
   color: inherit;

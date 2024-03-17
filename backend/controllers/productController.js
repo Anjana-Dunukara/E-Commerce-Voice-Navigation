@@ -169,15 +169,12 @@ exports.addProduct = async (req, res) => {
       newProduct,
     });
   } catch (error) {
-    console.error("Error adding product:", error);
+    console.error('Error adding product:', error);
     res.status(400).json({
-<<<<<<< HEAD
       status: 'failed',
       error,
-=======
-      status: "failed",
+      status: 'failed',
       error: error.message,
->>>>>>> upstream/main
     });
   }
 };

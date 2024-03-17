@@ -95,16 +95,6 @@ const Navbar = () => {
               className="logo-image"
             />
           </Box>
-          {/* <Text
-            fontSize={40}
-            fontWeight={700}
-            color={"facebook.500"}
-            letterSpacing={-2}
-            cursor="pointer"
-            onClick={() => navigate("/")}
-          >
-            CLOTHIFY
-          </Text> */}
           <Hamburger base="flex" sm="none" md="none" />
         </Box>
         <Searchbar />

@@ -38,12 +38,21 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
 
   const { values, isValid, handleChange, handleSubmit, resetForm } = useFormik({
     initialValues: {
+<<<<<<< HEAD
       name: '',
       description: '',
       category: '',
       color: '',
       gender: '',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
+=======
+      name: "",
+      description: "",
+      category: "",
+      color: "",
+      condition: "",
+      shipingLocations: ["Sri Lanka", "China", "UK", "USA"],
+>>>>>>> upstream/main
       price: 0,
     },
     onSubmit: (values) => {
@@ -51,10 +60,10 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
         imageUrl,
         values.name,
         values.color,
-        values.sizes,
+        values.shipingLocations,
         values.description,
         values.category,
-        values.gender,
+        values.condition,
         values.price
       ).then((result) => {
         if (result.status) {
@@ -248,14 +257,13 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
             </Select>
             <Select
               mt={3}
-              name="gender"
-              placeholder="Gender"
+              name="condition"
+              placeholder="Condition"
               onChange={handleChange}
-              value={values.gender}
+              value={values.condition}
             >
-              <option value="man">Man</option>
-              <option value="woman">Woman</option>
-              <option value="unisex">Unisex</option>
+              <option value="new">New</option>
+              <option value="used">Used</option>
             </Select>
             <Input
               mt={3}

@@ -67,13 +67,13 @@ exports.getProductsByCategoryId = async (req, res) => {
   }
 };
 
-exports.getProductsByGender = async (req, res) => {
+exports.getProductsByCondition = async (req, res) => {
   try {
     const products = await Product.find({
       $and: [
         { price: { $gte: req.body.lowest } },
         { price: { $lte: req.body.uppest } },
-        { gender: req.params.gender },
+        { condition: req.params.condition },
       ],
     });
 
@@ -147,7 +147,7 @@ exports.getProductsByQueries = async (req, res) => {
         { price: { $gte: req.body.lowest } },
         { price: { $lte: req.body.uppest } },
         { color: req.body.color },
-        { gender: req.body.gender },
+        { condition: req.body.condition },
       ],
     });
 
@@ -169,15 +169,20 @@ exports.addProduct = async (req, res) => {
       newProduct,
     });
   } catch (error) {
+    console.error("Error adding product:", error);
     res.status(400).json({
+<<<<<<< HEAD
       status: 'failed',
       error,
+=======
+      status: "failed",
+      error: error.message,
+>>>>>>> upstream/main
     });
   }
 };
 
 exports.updateProduct = async (req, res) => {
-  console.log(req.body);
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,

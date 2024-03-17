@@ -80,7 +80,7 @@ const Home = () => {
           >
             <WorkspacePremium sx={{ fontSize: 50 }} color="inherit" />
             <Text mt={3} fontSize={20} fontWeight={600} color="inherit">
-              Clothify Quality Assurance
+              Vcart Quality Assurance
             </Text>
           </Box>
         </Container>

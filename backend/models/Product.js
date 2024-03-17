@@ -14,7 +14,7 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    sizes: {
+    shipingLocations: {
       type: Array,
       required: true,
     },
@@ -26,7 +26,7 @@ const ProductSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
     },
-    gender: {
+    condition: {
       type: String,
       required: true,
     },

@@ -42,8 +42,8 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
       description: "",
       category: "",
       color: "",
-      gender: "",
-      sizes: ["XS", "S", "M", "L", "XL"],
+      condition: "",
+      shipingLocations: ["Sri Lanka", "China", "UK", "USA"],
       price: 0,
     },
     onSubmit: (values) => {
@@ -54,7 +54,7 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
         values.sizes,
         values.description,
         values.category,
-        values.gender,
+        values.condition,
         values.price
       ).then((result) => {
         if (result.status) {
@@ -248,14 +248,13 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
             </Select>
             <Select
               mt={3}
-              name="gender"
-              placeholder="Gender"
+              name="condition"
+              placeholder="Condition"
               onChange={handleChange}
-              value={values.gender}
+              value={values.condition}
             >
-              <option value="man">Man</option>
-              <option value="woman">Woman</option>
-              <option value="unisex">Unisex</option>
+              <option value="new">New</option>
+              <option value="used">Used</option>
             </Select>
             <Input
               mt={3}

@@ -76,7 +76,7 @@ const ProductsforAdmin = () => {
                 <Th>Id</Th>
                 <Th>Name</Th>
                 <Th>Color</Th>
-                <Th>Gender</Th>
+                <Th>Condition</Th>
                 <Th>Price</Th>
                 <Th>
                   <Button colorScheme="facebook" onClick={onClickAdd}>
@@ -95,7 +95,7 @@ const ProductsforAdmin = () => {
                     <Td>{product._id}</Td>
                     <Td>{product.name}</Td>
                     <Td>{product.color}</Td>
-                    <Td>{product.gender}</Td>
+                    <Td>{product.condition}</Td>
                     <Td>{product.price} $</Td>
                     <Td>
                       <Button

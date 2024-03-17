@@ -67,13 +67,13 @@ exports.getProductsByCategoryId = async (req, res) => {
   }
 };
 
-exports.getProductsByGender = async (req, res) => {
+exports.getProductsByCondition = async (req, res) => {
   try {
     const products = await Product.find({
       $and: [
         { price: { $gte: req.body.lowest } },
         { price: { $lte: req.body.uppest } },
-        { gender: req.params.gender },
+        { condition: req.params.condition },
       ],
     });
 
@@ -147,7 +147,7 @@ exports.getProductsByQueries = async (req, res) => {
         { price: { $gte: req.body.lowest } },
         { price: { $lte: req.body.uppest } },
         { color: req.body.color },
-        { gender: req.body.gender },
+        { condition: req.body.condition },
       ],
     });
 

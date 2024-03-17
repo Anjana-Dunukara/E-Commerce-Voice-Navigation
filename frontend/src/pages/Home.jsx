@@ -17,17 +17,29 @@ import {
 import Carousel from '../components/Carousel';
 import { getAllMiniImages } from '../services/ImageServices';
 import { useSearchContext } from '../contexts/SearchContext';
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from 'react-speech-recognition';
 
 const Home = () => {
   const navigate = useNavigate();
   const { setSearch } = useSearchContext();
   const [miniImages, setMiniImages] = useState([]);
+  const { transcript, resetTranscript } = useSpeechRecognition();
 
   useEffect(() => {
     getAllMiniImages().then((result) => {
       setMiniImages(result.miniImages);
     });
   }, []);
+
+  // useEffect(() => {
+  //   if (transcript.toLowerCase() === 'search') {
+  //     setSearch('a');
+  //     navigate('/search');
+  //     resetTranscript();
+  //   }
+  // }, []);
 
   const onClickImage = () => {
     setSearch('a');
@@ -116,6 +128,7 @@ const Home = () => {
           </>
         )}
       </SimpleGrid>
+      <button onClick={SpeechRecognition.startListening}>Start Voice</button>
     </Box>
   );
 };

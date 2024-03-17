@@ -51,7 +51,7 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
         imageUrl,
         values.name,
         values.color,
-        values.sizes,
+        values.shipingLocations,
         values.description,
         values.category,
         values.condition,

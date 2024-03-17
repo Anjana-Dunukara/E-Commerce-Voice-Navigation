@@ -39,7 +39,7 @@ const Home = () => {
       <Box display="flex" justifyContent="center" className="carousel">
         <Carousel />
       </Box>
-      <Box bg="facebook.500" mt={{ base: 5, md: 0 }}>
+      <Box bg="black" mt={{ base: 5, md: 0 }}>
         <Container
           maxWidth={1200}
           display="flex"

@@ -23,11 +23,11 @@ const Home = () => {
   const { setSearch } = useSearchContext();
   const [miniImages, setMiniImages] = useState([]);
 
-  // useEffect(() => {
-  //   getAllMiniImages().then((result) => {
-  //     setMiniImages(result.miniImages);
-  //   });
-  // }, []);
+  useEffect(() => {
+    getAllMiniImages().then((result) => {
+      setMiniImages(result.miniImages);
+    });
+  }, []);
 
   const onClickImage = () => {
     setSearch('a');

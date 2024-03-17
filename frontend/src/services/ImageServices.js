@@ -44,15 +44,15 @@ export const deleteMiniImage = async (id) => {
   return data;
 };
 
-// CLOUDINARY
+// Add the image in cloud
 
 export const uploadImageToCloudinary = async (image) => {
   const data = new FormData();
   data.append('file', image);
-  data.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET);
-  data.append('cloud_name', process.env.REACT_APP_CLOUD_NAME);
+  data.append('upload_preset', 'd1qunvml');
+  data.append('cloud_name', 'dn8ypojvn');
   const result = await fetch(
-    `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
+    `https://api.cloudinary.com/v1_1/dn8ypojvn/image/upload`,
     {
       method: 'POST',
       body: data,

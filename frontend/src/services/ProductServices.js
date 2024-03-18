@@ -96,19 +96,16 @@ export const addProduct = async (
   condition,
   price
 ) => {
-  const { data } = await axios.post(
-    `${process.env.REACT_APP_API_BASE_URL}/products`,
-    {
-      imageUrl,
-      name,
-      color,
-      shipingLocations,
-      description,
-      category,
-      condition,
-      price,
-    }
-  );
+  const { data } = await axios.post(`http://localhost:4000/products`, {
+    imageUrl,
+    name,
+    color,
+    shipingLocations,
+    description,
+    category,
+    condition,
+    price,
+  });
   return data;
 };
 

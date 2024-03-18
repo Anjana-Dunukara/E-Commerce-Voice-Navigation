@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdKeyboardVoice } from 'react-icons/md';
+import bannerImage from '../assets/banner.png';
+import shoppingImage from '../assets/shopping.png';
+import wecart from '../assets/wecart.png';
+import shoppingGirl from '../assets/shoppinggirl.png';
 import {
   Box,
   Text,
@@ -77,7 +81,7 @@ const Home = () => {
       <Box display="flex" justifyContent="center" className="carousel">
         <Carousel />
       </Box>
-      <Box bg="black" mt={{ base: 5, md: 0 }}>
+      <Box bg="#E5AD66" mt={{ base: 5, md: 0 }}>
         <Container
           maxWidth={1200}
           display="flex"
@@ -92,10 +96,7 @@ const Home = () => {
             display="flex"
             flexDirection="column"
           >
-            <AccountBalanceWallet sx={{ fontSize: 50 }} color="inherit" />
-            <Text mt={3} fontSize={20} fontWeight={600} color="inherit">
-              Secure Payment Options
-            </Text>
+            <img className="banner" src={bannerImage} alt="bannerImage" />
           </Box>
           <Box
             color="#fff"
@@ -104,10 +105,7 @@ const Home = () => {
             flexDirection="column"
             mt={{ base: 5, md: 0 }}
           >
-            <AssignmentReturn sx={{ fontSize: 50 }} color="inherit" />
-            <Text mt={3} fontSize={20} fontWeight={600} color="inherit">
-              30 Days Free Returns
-            </Text>
+            <img className="shopping" src={shoppingImage} alt="shoppingImage" />
           </Box>
           <Box
             color="#fff"
@@ -116,10 +114,7 @@ const Home = () => {
             flexDirection="column"
             mt={{ base: 5, md: 0 }}
           >
-            <WorkspacePremium sx={{ fontSize: 50 }} color="inherit" />
-            <Text mt={3} fontSize={20} fontWeight={600} color="inherit">
-              Vcart Quality Assurance
-            </Text>
+            <img className="shgirl" src={shoppingGirl} alt="Logo image" />
           </Box>
         </Container>
       </Box>

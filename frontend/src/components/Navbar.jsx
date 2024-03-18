@@ -71,7 +71,7 @@ const Navbar = () => {
       boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
       position="sticky"
       top="0px"
-      backgroundColor="#fff"
+      backgroundColor="#DED7CF"
       zIndex={500}
     >
       <Box

@@ -6,82 +6,94 @@ import { Favorite } from '@mui/icons-material';
 import { getUserById } from '../services/UserServices';
 import { useUserContext } from '../contexts/UserContext';
 import ClothesCard from '../components/ClothesCard';
+import Voice from '../components/Voice';
 
 const Favorites = () => {
-
   const { currentUser } = useUserContext();
   const navigate = useNavigate();
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    getUserById(currentUser)
-      .then(result => {
-        setFavorites(result.user.favorites);
-      });
+    getUserById(currentUser).then((result) => {
+      setFavorites(result.user.favorites);
+    });
   }, [currentUser]);
 
-  if (currentUser !== "") {
+  if (currentUser !== '') {
     if (favorites.length !== 0) {
       return (
         <Box px={10} py={5}>
-          <SimpleGrid columns={{ base: 1, sm: 2, lg: 3, xl: 4 }} spacing={3} >
-            {
-              favorites.map((favorite) => {
-                return <ClothesCard key={favorite} productId={favorite} />
-              })
-            }
+          <SimpleGrid columns={{ base: 1, sm: 2, lg: 3, xl: 4 }} spacing={3}>
+            {favorites.map((favorite) => {
+              return <ClothesCard key={favorite} productId={favorite} />;
+            })}
           </SimpleGrid>
+          <Voice />
         </Box>
-      )
+      );
     } else {
       return (
         <Box
-          display='flex'
-          justifyContent='center'
-          alignItems='center'
-          flexDirection='column'
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="column"
           mt={10}
           p={3}
         >
-          <Icon color='#314E89' fontSize={100} as={Favorite} />
-          <Heading textAlign='center' fontSize={30} mt={8}  >You don't have any favorite</Heading>
-          <Text textAlign='center' fontSize={24} mt={2} fontWeight={300} >You haven't added a product to your favourites. All you have to do is click on the little heart icon.</Text>
+          <Icon color="#314E89" fontSize={100} as={Favorite} />
+          <Heading textAlign="center" fontSize={30} mt={8}>
+            You don't have any favorite
+          </Heading>
+          <Text textAlign="center" fontSize={24} mt={2} fontWeight={300}>
+            You haven't added a product to your favourites. All you have to do
+            is click on the little heart icon.
+          </Text>
           <Button
-            variant='solid'
+            variant="solid"
             fontSize={20}
-            px={10} mt={10}
-            colorScheme='facebook'
-            onClick={() => navigate('/')}>
+            px={10}
+            mt={10}
+            colorScheme="facebook"
+            onClick={() => navigate('/')}
+          >
             Start Shopping
           </Button>
+          <Voice />
         </Box>
-      )
+      );
     }
   } else {
     return (
       <Box
-        display='flex'
-        justifyContent='center'
-        alignItems='center'
-        flexDirection='column'
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        flexDirection="column"
         mt={10}
         p={3}
       >
-        <Icon color='#314E89' fontSize={100} as={Favorite} />
-        <Heading textAlign='center' fontSize={30} mt={8}  >You must be logged in</Heading>
-        <Text textAlign='center' fontSize={24} mt={2} fontWeight={300} >You must be logged in to see your favorites or buy something.</Text>
+        <Icon color="#314E89" fontSize={100} as={Favorite} />
+        <Heading textAlign="center" fontSize={30} mt={8}>
+          You must be logged in
+        </Heading>
+        <Text textAlign="center" fontSize={24} mt={2} fontWeight={300}>
+          You must be logged in to see your favorites or buy something.
+        </Text>
         <Button
-          variant='solid'
+          variant="solid"
           fontSize={20}
-          px={10} mt={10}
-          colorScheme='facebook'
-          onClick={() => navigate('/login')}>
+          px={10}
+          mt={10}
+          colorScheme="facebook"
+          onClick={() => navigate('/login')}
+        >
           Login
         </Button>
+        <Voice />
       </Box>
-    )
+    );
   }
-
-}
+};
 
 export default Favorites;

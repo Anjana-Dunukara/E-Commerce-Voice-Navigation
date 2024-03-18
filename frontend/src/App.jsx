@@ -23,7 +23,6 @@ import { useUserContext } from './contexts/UserContext';
 import useGetUserRole from './hooks/useGetUserRole';
 
 const App = () => {
-
   const { currentUser } = useUserContext();
   const [admin] = useGetUserRole(currentUser);
 
@@ -31,36 +30,40 @@ const App = () => {
     <>
       <Navbar />
       <Routes>
-        <Route exact path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/cart' element={<Cart />} />
-        <Route path='/favorites' element={<Favorites />} />
-        <Route path='/product' element={<Product />} />
-        <Route path='/product/:id' element={<Product />} />
-        <Route path='/infos' element={currentUser ? <Infos /> : <Navigate to='/' />} />
-        <Route path='/orders' element={currentUser ? <Orders /> : <Navigate to='/' />} />
-        <Route path='/purchase' element={<Purchase />} />
-        <Route path='/search' element={<Search />} />
-        <Route path='/payment' element={<Payment />} />
-        {
-            admin
-            ?
-            <>
-              <Route path='/admin/products' element={<ProductsforAdmin />} />
-              <Route path='/admin/categories' element={<CategoriesforAdmin />} />
-              <Route path='/admin/orders' element={<OrdersforAdmin />} />
-              <Route path='/admin/images' element={<ImagesforAdmin />} />
-              <Route path='/admin/reports' element={<ReportsforAdmin />} />
-            </>
-            :
-            <Route path='/admin/*' element={<Navigate to='/' />} />
-        }
-        <Route path='*' element={<Navigate to='/' />} />
+        <Route exact path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/product" element={<Product />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route
+          path="/infos"
+          element={currentUser ? <Infos /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/orders"
+          element={currentUser ? <Orders /> : <Navigate to="/" />}
+        />
+        <Route path="/purchase" element={<Purchase />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/payment" element={<Payment />} />
+        {admin ? (
+          <>
+            <Route path="/admin/products" element={<ProductsforAdmin />} />
+            <Route path="/admin/categories" element={<CategoriesforAdmin />} />
+            <Route path="/admin/orders" element={<OrdersforAdmin />} />
+            <Route path="/admin/images" element={<ImagesforAdmin />} />
+            <Route path="/admin/reports" element={<ReportsforAdmin />} />
+          </>
+        ) : (
+          <Route path="/admin/*" element={<Navigate to="/" />} />
+        )}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />
     </>
-  )
-}
+  );
+};
 
 export default App;

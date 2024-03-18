@@ -18,9 +18,10 @@ import {
 import Carousel from '../components/Carousel';
 import { getAllMiniImages } from '../services/ImageServices';
 import { useSearchContext } from '../contexts/SearchContext';
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from 'react-speech-recognition';
+import Voice from '../components/Voice';
+// import SpeechRecognition, {
+//   useSpeechRecognition,
+// } from 'react-speech-recognition';
 
 const Home = () => {
   useEffect(() => {
@@ -29,42 +30,42 @@ const Home = () => {
     });
   }, []);
 
-  const commands = [
-    {
-      command: ['Open *'],
-      callback: (redirectPage) => setRedirectUrl(redirectPage),
-    },
-  ];
+  // const commands = [
+  //   {
+  //     command: ['Open *'],
+  //     callback: (redirectPage) => setRedirectUrl(redirectPage),
+  //   },
+  // ];
 
   const navigate = useNavigate();
   const { setSearch } = useSearchContext();
   const [miniImages, setMiniImages] = useState([]);
-  const { transcript, resetTranscript } = useSpeechRecognition({ commands });
-  const [redirectUrl, setRedirectUrl] = useState('');
-  const pages = ['home', 'search', 'cart', 'favorites', 'login'];
-  const urls = {
-    home: '/',
-    search: '/search',
-    cart: '/cart',
-    favorites: '/favorites',
-    login: '/login',
-  };
+  // const { transcript, resetTranscript } = useSpeechRecognition({ commands });
+  // const [redirectUrl, setRedirectUrl] = useState('');
+  // const pages = ['home', 'search', 'cart', 'favorites', 'login'];
+  // const urls = {
+  //   home: '/',
+  //   search: '/search',
+  //   cart: '/cart',
+  //   favorites: '/favorites',
+  //   login: '/login',
+  // };
 
-  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-    return null;
-  }
+  // if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+  //   return null;
+  // }
 
-  if (redirectUrl) {
-    if (pages.includes(redirectUrl)) {
-      navigate(urls[redirectUrl]);
-    } else {
-      console.log('Error');
-    }
-  }
+  // if (redirectUrl) {
+  //   if (pages.includes(redirectUrl)) {
+  //     navigate(urls[redirectUrl]);
+  //   } else {
+  //     console.log('Error');
+  //   }
+  // }
 
-  const handleVoiceCommand = () => {
-    SpeechRecognition.startListening();
-  };
+  // const handleVoiceCommand = () => {
+  //   SpeechRecognition.startListening();
+  // };
 
   const onClickImage = () => {
     setSearch('a');
@@ -153,9 +154,10 @@ const Home = () => {
           </>
         )}
       </SimpleGrid>
-      <div className="voiceBtn">
+      {/* <div className="voiceBtn">
         <MdKeyboardVoice onClick={handleVoiceCommand} />
-      </div>
+      </div> */}
+      <Voice />
     </Box>
   );
 };

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { MdKeyboardVoice } from 'react-icons/md';
 import {
   Box,
   Text,
@@ -7,45 +8,81 @@ import {
   SimpleGrid,
   Image,
   CircularProgress,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import {
   AccountBalanceWallet,
   AssignmentReturn,
   WorkspacePremium,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 
-import Carousel from "../components/Carousel";
-import { getAllMiniImages } from "../services/ImageServices";
-import { useSearchContext } from "../contexts/SearchContext";
+import Carousel from '../components/Carousel';
+import { getAllMiniImages } from '../services/ImageServices';
+import { useSearchContext } from '../contexts/SearchContext';
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from 'react-speech-recognition';
 
 const Home = () => {
-  const navigate = useNavigate();
-  const { setSearch } = useSearchContext();
-  const [miniImages, setMiniImages] = useState([]);
-
   useEffect(() => {
     getAllMiniImages().then((result) => {
       setMiniImages(result.miniImages);
     });
   }, []);
 
+  const commands = [
+    {
+      command: ['Open *'],
+      callback: (redirectPage) => setRedirectUrl(redirectPage),
+    },
+  ];
+
+  const navigate = useNavigate();
+  const { setSearch } = useSearchContext();
+  const [miniImages, setMiniImages] = useState([]);
+  const { transcript, resetTranscript } = useSpeechRecognition({ commands });
+  const [redirectUrl, setRedirectUrl] = useState('');
+  const pages = ['home', 'search', 'cart', 'favorites', 'login'];
+  const urls = {
+    home: '/',
+    search: '/search',
+    cart: '/cart',
+    favorites: '/favorites',
+    login: '/login',
+  };
+
+  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+    return null;
+  }
+
+  if (redirectUrl) {
+    if (pages.includes(redirectUrl)) {
+      navigate(urls[redirectUrl]);
+    } else {
+      console.log('Error');
+    }
+  }
+
+  const handleVoiceCommand = () => {
+    SpeechRecognition.startListening();
+  };
+
   const onClickImage = () => {
-    setSearch("a");
-    navigate("/search");
+    setSearch('a');
+    navigate('/search');
   };
 
   return (
     <Box>
-      <Box display="flex" justifyContent="center">
+      <Box display="flex" justifyContent="center" className="carousel">
         <Carousel />
       </Box>
-      <Box bg="facebook.500" mt={{ base: 5, md: 0 }}>
+      <Box bg="black" mt={{ base: 5, md: 0 }}>
         <Container
           maxWidth={1200}
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          flexDirection={{ base: "column", md: "row" }}
+          flexDirection={{ base: 'column', md: 'row' }}
           py={7}
         >
           <Box
@@ -116,6 +153,9 @@ const Home = () => {
           </>
         )}
       </SimpleGrid>
+      <div className="voiceBtn">
+        <MdKeyboardVoice onClick={handleVoiceCommand} />
+      </div>
     </Box>
   );
 };

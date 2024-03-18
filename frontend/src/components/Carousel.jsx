@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import { Box, IconButton, useBreakpointValue } from '@chakra-ui/react';
 import { ArrowForwardIos, ArrowBackIos } from '@mui/icons-material';
 
@@ -22,33 +22,32 @@ const settings = {
 };
 
 const Carousel = () => {
-
   const navigate = useNavigate();
   const { setSearch } = useSearchContext();
   const [images, setImages] = useState([]);
-  const [slider, setSlider] = useState("");
+  const [slider, setSlider] = useState('');
 
   const top = useBreakpointValue({ base: '90%', sm: '50%' });
   const side = useBreakpointValue({ base: '30%', sm: '10px' });
 
   useEffect(() => {
-    getAllImages()
-      .then((result) => {
-        setImages(result.images);
-      });
+    getAllImages().then((result) => {
+      setImages(result.images);
+    });
   }, []);
 
   const onClickImage = () => {
     setSearch('a');
     navigate('/search');
-  }
+  };
 
   return (
     <Box
       position={'relative'}
       mt={0}
       width={{ base: '100vw', md: '1200px' }}
-      overflow={'hidden'}>
+      overflow={'hidden'}
+    >
       <IconButton
         colorScheme="facebook"
         borderRadius="full"
@@ -74,9 +73,9 @@ const Carousel = () => {
       >
         <ArrowForwardIos />
       </IconButton>
-      <Slider {...settings} ref={(slider) => setSlider(slider)} >
-        {
-          images && images.map((image, index) => (
+      <Slider {...settings} ref={(slider) => setSlider(slider)}>
+        {images &&
+          images.map((image, index) => (
             <Box
               onClick={onClickImage}
               key={index}
@@ -86,13 +85,12 @@ const Carousel = () => {
               backgroundRepeat="no-repeat"
               backgroundSize="contain"
               backgroundImage={`url(${image.url})`}
-              cursor='pointer'
+              cursor="pointer"
             />
-          ))
-        }
-        </Slider >
-      </Box >
-    )
-}
+          ))}
+      </Slider>
+    </Box>
+  );
+};
 
 export default Carousel;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -13,27 +13,27 @@ import {
   Select,
   useToast,
   Textarea,
-} from "@chakra-ui/react";
-import { useFormik } from "formik";
+} from '@chakra-ui/react';
+import { useFormik } from 'formik';
 
-import ProductValidations from "../validations/ProductValidations";
+import ProductValidations from '../validations/ProductValidations';
 import {
   getProductById,
   addProduct,
   updateProduct,
-} from "../services/ProductServices";
-import { getCategoryByGenre } from "../services/CategoryServices";
-import { getAllGenres } from "../services/GenreServices";
-import { uploadImageToCloudinary } from "../services/ImageServices";
+} from '../services/ProductServices';
+import { getCategoryByGenre } from '../services/CategoryServices';
+import { getAllGenres } from '../services/GenreServices';
+import { uploadImageToCloudinary } from '../services/ImageServices';
 
 const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
   const toast = useToast();
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
   const [allCategories, setAllCategories] = useState([]);
-  const [imageUrl, setImageUrl] = useState("");
-  const [selectedGenre, setSelectedGenre] = useState("");
+  const [imageUrl, setImageUrl] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState('');
   const [allGenres, setAllGenres] = useState([]);
 
   const { values, isValid, handleChange, handleSubmit, resetForm } = useFormik({
@@ -59,9 +59,9 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
       ).then((result) => {
         if (result.status) {
           toast({
-            title: "Error!",
-            description: "Somethings went wrong.",
-            status: "error",
+            title: 'Error!',
+            description: 'Somethings went wrong.',
+            status: 'error',
             duration: 2000,
             isClosable: true,
           });
@@ -69,9 +69,9 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
           onClose(true);
           resetForm();
           toast({
-            title: "Added!",
-            description: "Product successfully added.",
-            status: "success",
+            title: 'Added!',
+            description: 'Product successfully added.',
+            status: 'success',
             duration: 2000,
             isClosable: true,
           });
@@ -98,18 +98,18 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
     updateProduct(currentId, name, description, price).then((result) => {
       if (result.status) {
         toast({
-          title: "Error!",
-          description: "Somethings went wrong.",
-          status: "error",
+          title: 'Error!',
+          description: 'Somethings went wrong.',
+          status: 'error',
           duration: 2000,
           isClosable: true,
         });
       } else {
         onClose(true);
         toast({
-          title: "Edited!",
-          description: "Product successfully edited.",
-          status: "success",
+          title: 'Edited!',
+          description: 'Product successfully edited.',
+          status: 'success',
           duration: 2000,
           isClosable: true,
         });
@@ -270,7 +270,7 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
               type="submit"
               colorScheme="facebook"
               onClick={handleSubmit}
-              disabled={!isValid && imageUrl === ""}
+              disabled={!isValid && imageUrl === ''}
             >
               Add
             </Button>

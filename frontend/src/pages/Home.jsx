@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { MdKeyboardVoice } from 'react-icons/md';
 import {
   Box,
   Text,
@@ -22,24 +23,48 @@ import SpeechRecognition, {
 } from 'react-speech-recognition';
 
 const Home = () => {
-  const navigate = useNavigate();
-  const { setSearch } = useSearchContext();
-  const [miniImages, setMiniImages] = useState([]);
-  const { transcript, resetTranscript } = useSpeechRecognition();
-
   useEffect(() => {
     getAllMiniImages().then((result) => {
       setMiniImages(result.miniImages);
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (transcript.toLowerCase() === 'search') {
-  //     setSearch('a');
-  //     navigate('/search');
-  //     resetTranscript();
-  //   }
-  // }, []);
+  const commands = [
+    {
+      command: ['Open *'],
+      callback: (redirectPage) => setRedirectUrl(redirectPage),
+    },
+  ];
+
+  const navigate = useNavigate();
+  const { setSearch } = useSearchContext();
+  const [miniImages, setMiniImages] = useState([]);
+  const { transcript, resetTranscript } = useSpeechRecognition({ commands });
+  const [redirectUrl, setRedirectUrl] = useState('');
+  const pages = ['home', 'search', 'cart', 'favorites', 'login'];
+  const urls = {
+    home: '/',
+    search: '/search',
+    cart: '/cart',
+    favorites: '/favorites',
+    login: '/login',
+  };
+
+  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+    return null;
+  }
+
+  if (redirectUrl) {
+    if (pages.includes(redirectUrl)) {
+      navigate(urls[redirectUrl]);
+    } else {
+      console.log('Error');
+    }
+  }
+
+  const handleVoiceCommand = () => {
+    SpeechRecognition.startListening();
+  };
 
   const onClickImage = () => {
     setSearch('a');
@@ -128,7 +153,9 @@ const Home = () => {
           </>
         )}
       </SimpleGrid>
-      <button onClick={SpeechRecognition.startListening}>Start Voice</button>
+      <div className="voiceBtn">
+        <MdKeyboardVoice onClick={handleVoiceCommand} />
+      </div>
     </Box>
   );
 };

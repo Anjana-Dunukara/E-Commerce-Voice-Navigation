@@ -267,6 +267,7 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
           </ModalBody>
           <ModalFooter>
             <Button
+              type="submit"
               colorScheme="facebook"
               onClick={handleSubmit}
               disabled={!isValid && imageUrl === ""}

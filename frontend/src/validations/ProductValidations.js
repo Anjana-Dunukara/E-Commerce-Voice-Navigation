@@ -6,7 +6,7 @@ const ProductValidations = yup.object().shape({
   shipingLocations: yup.array().required(),
   description: yup.string().max(200).required(),
   category: yup.string().required(),
-  conditions: yup.string().required(),
+  condition: yup.string().required(),
   price: yup.number().required(),
 });
 

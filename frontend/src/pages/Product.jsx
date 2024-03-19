@@ -209,7 +209,7 @@ const Product = () => {
                       variant={
                         selectedLocation === location ? "solid" : "outline"
                       }
-                      width={{ base: "25px", sm: "35px", lg: "50px" }}
+                      width={{ base: "60px", sm: "70px", lg: "85px" }}
                       height={{ base: "30px", sm: "40px", lg: "50px" }}
                     >
                       {location}

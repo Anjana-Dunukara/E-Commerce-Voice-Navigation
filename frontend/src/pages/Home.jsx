@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { MdKeyboardVoice } from 'react-icons/md';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { MdKeyboardVoice } from "react-icons/md";
 import {
   Box,
   Text,
@@ -8,19 +8,19 @@ import {
   SimpleGrid,
   Image,
   CircularProgress,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 import {
   AccountBalanceWallet,
   AssignmentReturn,
   WorkspacePremium,
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
-import Carousel from '../components/Carousel';
-import { getAllMiniImages } from '../services/ImageServices';
-import { useSearchContext } from '../contexts/SearchContext';
+import Carousel from "../components/Carousel";
+import { getAllMiniImages } from "../services/ImageServices";
+import { useSearchContext } from "../contexts/SearchContext";
 import SpeechRecognition, {
   useSpeechRecognition,
-} from 'react-speech-recognition';
+} from "react-speech-recognition";
 
 const Home = () => {
   useEffect(() => {
@@ -31,7 +31,7 @@ const Home = () => {
 
   const commands = [
     {
-      command: ['Open *'],
+      command: ["Open *"],
       callback: (redirectPage) => setRedirectUrl(redirectPage),
     },
   ];
@@ -40,14 +40,14 @@ const Home = () => {
   const { setSearch } = useSearchContext();
   const [miniImages, setMiniImages] = useState([]);
   const { transcript, resetTranscript } = useSpeechRecognition({ commands });
-  const [redirectUrl, setRedirectUrl] = useState('');
-  const pages = ['home', 'search', 'cart', 'favorites', 'login'];
+  const [redirectUrl, setRedirectUrl] = useState("");
+  const pages = ["home", "search", "cart", "favorites", "login"];
   const urls = {
-    home: '/',
-    search: '/search',
-    cart: '/cart',
-    favorites: '/favorites',
-    login: '/login',
+    home: "/",
+    search: "/search",
+    cart: "/cart",
+    favorites: "/favorites",
+    login: "/login",
   };
 
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
@@ -58,7 +58,7 @@ const Home = () => {
     if (pages.includes(redirectUrl)) {
       navigate(urls[redirectUrl]);
     } else {
-      console.log('Error');
+      console.log("Error");
     }
   }
 
@@ -67,8 +67,8 @@ const Home = () => {
   };
 
   const onClickImage = () => {
-    setSearch('a');
-    navigate('/search');
+    setSearch("a");
+    navigate("/search");
   };
 
   return (
@@ -82,7 +82,7 @@ const Home = () => {
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          flexDirection={{ base: 'column', md: 'row' }}
+          flexDirection={{ base: "column", md: "row" }}
           py={7}
         >
           <Box

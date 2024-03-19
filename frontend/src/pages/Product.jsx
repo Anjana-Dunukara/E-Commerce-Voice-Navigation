@@ -25,6 +25,7 @@ import { addFavorite, deleteFavorite } from "../services/UserServices";
 import { getCommentByProductId } from "../services/CommentServices";
 import { getRatingByProductId } from "../services/RatingServices";
 import useGetUserHaveThis from "../hooks/useGetUserHaveThis";
+import { getOrdersByUserId } from "../services/OrderServices";
 
 const Product = () => {
   const toast = useToast();

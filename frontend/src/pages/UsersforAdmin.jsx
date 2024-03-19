@@ -18,7 +18,6 @@ import { deleteUser, getAllUsers } from "../services/UserServices";
 
 const UsersforAdmin = () => {
   const [users, setUsers] = useState([]);
-  const [currentId, setCurrentId] = useState("");
   const toast = useToast();
 
   useEffect(() => {

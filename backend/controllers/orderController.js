@@ -46,7 +46,6 @@ exports.getOrdersByUserId = async (req, res) => {
 };
 
 exports.getOrdersByStatus = async (req, res) => {
-  console.log(req.body);
   try {
     const orders = await Order.find({ status: req.params.status });
 

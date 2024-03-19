@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -7,36 +7,46 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  FormErrorMessage,
   Text,
   Button,
   Input,
   Select,
   useToast,
   Textarea,
-} from '@chakra-ui/react';
-import { useFormik } from 'formik';
+} from "@chakra-ui/react";
+import { useFormik } from "formik";
 
-import ProductValidations from '../validations/ProductValidations';
+import ProductValidations from "../validations/ProductValidations";
 import {
   getProductById,
   addProduct,
   updateProduct,
-} from '../services/ProductServices';
-import { getCategoryByGenre } from '../services/CategoryServices';
-import { getAllGenres } from '../services/GenreServices';
-import { uploadImageToCloudinary } from '../services/ImageServices';
+} from "../services/ProductServices";
+import { getCategoryByGenre } from "../services/CategoryServices";
+import { getAllGenres } from "../services/GenreServices";
+import { uploadImageToCloudinary } from "../services/ImageServices";
 
 const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
   const toast = useToast();
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [allCategories, setAllCategories] = useState([]);
-  const [imageUrl, setImageUrl] = useState('');
-  const [selectedGenre, setSelectedGenre] = useState('');
+  const [imageUrl, setImageUrl] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("");
   const [allGenres, setAllGenres] = useState([]);
 
-  const { values, isValid, handleChange, handleSubmit, resetForm } = useFormik({
+  const {
+    values,
+    isValid,
+    touched,
+    errors,
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    resetForm,
+  } = useFormik({
     initialValues: {
       name: "",
       description: "",
@@ -59,9 +69,9 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
       ).then((result) => {
         if (result.status) {
           toast({
-            title: 'Error!',
-            description: 'Somethings went wrong.',
-            status: 'error',
+            title: "Error!",
+            description: "Somethings went wrong.",
+            status: "error",
             duration: 2000,
             isClosable: true,
           });
@@ -69,9 +79,9 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
           onClose(true);
           resetForm();
           toast({
-            title: 'Added!',
-            description: 'Product successfully added.',
-            status: 'success',
+            title: "Added!",
+            description: "Product successfully added.",
+            status: "success",
             duration: 2000,
             isClosable: true,
           });
@@ -98,18 +108,18 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
     updateProduct(currentId, name, description, price).then((result) => {
       if (result.status) {
         toast({
-          title: 'Error!',
-          description: 'Somethings went wrong.',
-          status: 'error',
+          title: "Error!",
+          description: "Somethings went wrong.",
+          status: "error",
           duration: 2000,
           isClosable: true,
         });
       } else {
         onClose(true);
         toast({
-          title: 'Edited!',
-          description: 'Product successfully edited.',
-          status: 'success',
+          title: "Edited!",
+          description: "Product successfully edited.",
+          status: "success",
           duration: 2000,
           isClosable: true,
         });
@@ -193,7 +203,10 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
               placeholder="Name"
               onChange={handleChange}
               value={values.name}
+              onBlur={handleBlur}
+              isInvalid={touched.name && errors.name}
             />
+            {touched.name && <p className="error-message">{errors.name}</p>}
             <Textarea
               name="description"
               resize="none"
@@ -201,7 +214,11 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
               placeholder="Description"
               onChange={handleChange}
               value={values.description}
+              onBlur={handleBlur}
             />
+            {touched.description && (
+              <p className="error-message">{errors.description}</p>
+            )}
             <Select
               mt={3}
               placeholder="Genre"
@@ -223,6 +240,7 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
               placeholder="Category"
               onChange={handleChange}
               value={values.category}
+              onBlur={handleBlur}
             >
               {allCategories &&
                 allCategories.map((category) => {
@@ -233,12 +251,16 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
                   );
                 })}
             </Select>
+            {touched.category && (
+              <p className="error-message">{errors.category}</p>
+            )}
             <Select
               mt={3}
               name="color"
               placeholder="Color"
               onChange={handleChange}
               value={values.color}
+              onBlur={handleBlur}
             >
               <option value="blue">Blue</option>
               <option value="white">White</option>
@@ -246,16 +268,21 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
               <option value="black">Black</option>
               <option value="red">Red</option>
             </Select>
+            {touched.color && <p className="error-message">{errors.color}</p>}
             <Select
               mt={3}
               name="condition"
               placeholder="Condition"
               onChange={handleChange}
               value={values.condition}
+              onBlur={handleBlur}
             >
               <option value="new">New</option>
               <option value="used">Used</option>
             </Select>
+            {touched.condition && (
+              <p className="error-message">{errors.condition}</p>
+            )}
             <Input
               mt={3}
               placeholder="Price"
@@ -263,14 +290,16 @@ const ProductEditModal = ({ isOpen, onClose, isEdit, currentId }) => {
               name="price"
               onChange={handleChange}
               value={values.price}
+              onBlur={handleBlur}
             />
+            {touched.price && <p className="error-message">{errors.price}</p>}
           </ModalBody>
           <ModalFooter>
             <Button
               type="submit"
               colorScheme="facebook"
               onClick={handleSubmit}
-              disabled={!isValid && imageUrl === ''}
+              disabled={!isValid && imageUrl === ""}
             >
               Add
             </Button>

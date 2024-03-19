@@ -1,21 +1,26 @@
-// CheckoutForm.jsx
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Button, Box, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Box,
+  Text,
+  useToast,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 import { addOrder } from "../services/OrderServices";
 import { useUserContext } from "../contexts/UserContext";
 import { useCartContext } from "../contexts/CartContext";
+import { useFormik } from "formik";
+import CheckoutDetailsValidation from "../validations/CheckoutValidations";
 
 const CheckoutForm = ({ address }) => {
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvc, setCVC] = useState("");
-  const [message, setMessage] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [products, setProducts] = useState([]);
   const { currentUser } = useUserContext();
   const { cart, setCart } = useCartContext();
   const [cookies, removeCookie] = useCookies(["cart"]);
+  const toast = useToast();
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     var productArray = [];
@@ -25,65 +30,124 @@ const CheckoutForm = ({ address }) => {
     setProducts(productArray);
   }, [cart, cookies]);
 
-  const handlePaymentSubmit = async (e) => {
-    console.log(products);
-    e.preventDefault();
-    setIsLoading(true);
-
-    // Simulate adding order
-    addOrder(products, currentUser, address)
-      .then((result) => {})
-      .catch((error) => {
-        setMessage("An error occurred while processing the order.");
-        setIsLoading(false);
-      });
-
-    // Simulate successful payment
-    setTimeout(() => {
-      setIsLoading(false);
-      setMessage("Payment successful!");
-      setCart([]);
-      removeCookie("cart", { path: "/" });
-    }, 2000); // Simulate 2 seconds of processing time
-  };
+  const {
+    values,
+    errors,
+    touched,
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    isSubmitting,
+    isValid,
+    resetForm,
+  } = useFormik({
+    initialValues: {
+      cardNumber: "",
+      expiry: "",
+      cvc: "",
+    },
+    onSubmit: async (values) => {
+      try {
+        await addOrder(products, currentUser, address);
+        setTimeout(() => {
+          toast({
+            title: "Successful!",
+            description: "Thank you for purchasing from V-cart.",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+          setCart([]);
+          removeCookie("cart", { path: "/" });
+          resetForm();
+        }, 2000);
+      } catch (error) {
+        toast({
+          title: "An error occurred",
+          description: "An error occurred while processing the order.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    },
+    validationSchema: CheckoutDetailsValidation,
+  });
 
   return (
-    <form onSubmit={handlePaymentSubmit}>
-      <Box marginBottom="24px">
-        <Text mb={2}>Card Number</Text>
-        <input
-          type="text"
-          placeholder="Enter card number"
-          value={cardNumber}
-          onChange={(e) => setCardNumber(e.target.value)}
-          mb={2}
-        />
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      width="100vw"
+      mt={5}
+    >
+      <Box width={{ base: "100vw", sm: "500px" }} p={2}>
+        <Text
+          textAlign="center"
+          color={"facebook.500"}
+          fontSize={32}
+          fontWeight={600}
+          mb={10}
+        >
+          Payment Details
+        </Text>
+        <FormControl
+          marginBottom="24px"
+          isInvalid={touched.cardNumber && errors.cardNumber}
+        >
+          <FormLabel>Card Number</FormLabel>
+          <input
+            name="cardNumber"
+            type="text"
+            placeholder="Enter card number"
+            onChange={handleChange}
+            value={values.cardNumber}
+            onBlur={handleBlur}
+            mb={2}
+          />
+          <FormErrorMessage>{errors.cardNumber}</FormErrorMessage>
+        </FormControl>
+        <FormControl
+          marginBottom="24px"
+          isInvalid={touched.expiry && errors.expiry}
+        >
+          <FormLabel>Expiry</FormLabel>
+          <input
+            name="expiry"
+            type="text"
+            placeholder="MM/YY"
+            onChange={handleChange}
+            value={values.expiry}
+            onBlur={handleBlur}
+            mb={2}
+          />
+          <FormErrorMessage>{errors.expiry}</FormErrorMessage>
+        </FormControl>
+        <FormControl marginBottom="24px" isInvalid={touched.cvc && errors.cvc}>
+          <FormLabel>CVC</FormLabel>
+          <input
+            name="cvc"
+            type="text"
+            placeholder="CVC"
+            onChange={handleChange}
+            value={values.cvc}
+            onBlur={handleBlur}
+            mb={2}
+          />
+          <FormErrorMessage>{errors.cvc}</FormErrorMessage>
+        </FormControl>
+        <Button
+          onClick={handleSubmit}
+          variant="outline"
+          colorScheme="facebook"
+          disabled={!isValid && isSubmitting}
+          loadingText="Processing"
+        >
+          Pay now
+        </Button>
       </Box>
-      <Box marginBottom="24px">
-        <Text mb={2}>Expiry</Text>
-        <input
-          type="text"
-          placeholder="MM/YY"
-          value={expiry}
-          onChange={(e) => setExpiry(e.target.value)}
-          mb={2}
-        />
-      </Box>
-      <Box marginBottom="24px">
-        <Text mb={2}>CVC</Text>
-        <input
-          type="text"
-          placeholder="CVC"
-          value={cvc}
-          onChange={(e) => setCVC(e.target.value)}
-          mb={2}
-        />
-      </Box>
-      <Button type="submit" isLoading={isLoading} loadingText="Processing">
-        Pay now
-      </Button>
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+    </Box>
   );
 };
 

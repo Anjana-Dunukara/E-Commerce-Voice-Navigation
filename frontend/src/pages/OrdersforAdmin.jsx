@@ -7,7 +7,6 @@ import {
   Tr,
   Td,
   Th,
-  Button,
   TableContainer,
   CircularProgress,
 } from "@chakra-ui/react";
@@ -34,10 +33,6 @@ const OrdersforAdmin = () => {
       });
     }
   }, [refresh, currentStatus]);
-
-  const onClickStat = () => {
-    console.log(orders[2]);
-  };
 
   if (orders.length > 0) {
     return (

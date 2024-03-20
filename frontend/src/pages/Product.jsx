@@ -25,7 +25,6 @@ import { addFavorite, deleteFavorite } from "../services/UserServices";
 import { getCommentByProductId } from "../services/CommentServices";
 import { getRatingByProductId } from "../services/RatingServices";
 import useGetUserHaveThis from "../hooks/useGetUserHaveThis";
-import { getOrdersByUserId } from "../services/OrderServices";
 
 const Product = () => {
   const toast = useToast();
@@ -43,7 +42,7 @@ const Product = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [inCart, setInCart] = useState(false);
   const [amount, setAmount] = useState(0);
-  const [cookies, setCookies, removeCookie] = useCookies(["cart"]);
+  const [setCookies, removeCookie] = useCookies(["cart"]);
   const [have] = useGetUserHaveThis(currentUser, location.state.productId);
 
   useEffect(() => {

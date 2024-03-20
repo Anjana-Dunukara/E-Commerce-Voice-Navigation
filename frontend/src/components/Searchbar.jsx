@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   FormControl,
@@ -7,13 +7,13 @@ import {
   InputGroup,
   Button,
   InputRightElement,
-} from '@chakra-ui/react';
-import { Search } from '@mui/icons-material';
+} from "@chakra-ui/react";
+import { Search } from "@mui/icons-material";
 
-import { useSearchContext } from '../contexts/SearchContext';
+import { useSearchContext } from "../contexts/SearchContext";
 
 const Searchbar = () => {
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const { setSearch, setCanSearch } = useSearchContext();
   const navigate = useNavigate();
 
@@ -32,13 +32,13 @@ const Searchbar = () => {
     <Box
       display="flex"
       alignItems="center"
-      justifyContent={{ base: 'center' }}
+      justifyContent={{ base: "center" }}
       py={{ base: 3, sm: 0 }}
     >
       <FormControl
         as="form"
         onSubmit={handleSubmit}
-        width={{ base: '100%', sm: '20vw', md: '30vw' }}
+        width={{ base: "100%", sm: "20vw", md: "30vw" }}
         minWidth="200px"
         backgroundColor="#fff"
       >
@@ -46,7 +46,7 @@ const Searchbar = () => {
           <Input
             name="search"
             pr="4.5rem"
-            placeholder="Search for clothes..."
+            placeholder="Search for products..."
             onInput={handleInput}
           />
           <InputRightElement width="4rem">

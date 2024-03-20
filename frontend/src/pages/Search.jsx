@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   SimpleGrid,
@@ -8,17 +8,17 @@ import {
   Text,
   Icon,
   Heading,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-import ClothesCard from '../components/ClothesCard';
-import FilterMenu from '../components/FilterMenu';
+import ProductsCard from "../components/ProductsCard";
+import FilterMenu from "../components/FilterMenu";
 import {
   getProductByCategoryId,
   getProductBySearch,
-} from '../services/ProductServices';
-import { useSearchContext } from '../contexts/SearchContext';
-import { SearchOff } from '@mui/icons-material';
-import Voice from '../components/Voice';
+} from "../services/ProductServices";
+import { useSearchContext } from "../contexts/SearchContext";
+import { SearchOff } from "@mui/icons-material";
+import Voice from "../components/Voice";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -26,18 +26,18 @@ const Search = () => {
   const { search, canSearch } = useSearchContext();
   const [openFilter, setOpenFilter] = useState(true);
   const [products, setProducts] = useState([]);
-  const [sortBy, setSortBy] = useState('recommended');
+  const [sortBy, setSortBy] = useState("recommended");
 
   useEffect(() => {
     if (state !== null) {
       getProductByCategoryId(state.categoryId).then((result) => {
         setProducts(result.products);
       });
-      setSortBy('recommended');
+      setSortBy("recommended");
     }
     if (
-      search !== '' &&
-      search !== ' ' &&
+      search !== "" &&
+      search !== " " &&
       search !== null &&
       search !== undefined &&
       canSearch
@@ -45,15 +45,15 @@ const Search = () => {
       getProductBySearch(search).then((result) => {
         setProducts(result.products);
       });
-      setSortBy('recommended');
+      setSortBy("recommended");
     }
   }, [state, search, canSearch]);
 
   const handleChange = (e) => {
     setSortBy(e.target.value);
-    if (e.target.value === 'lowest') {
+    if (e.target.value === "lowest") {
       sortByPriceAsc();
-    } else if (e.target.value === 'highest') {
+    } else if (e.target.value === "highest") {
       sortByPriceDesc();
     }
   };
@@ -86,7 +86,7 @@ const Search = () => {
           backgroundColor="#fff"
           onClick={() => setOpenFilter(!openFilter)}
         >
-          {openFilter ? 'Hide' : 'Show'} Filter
+          {openFilter ? "Hide" : "Show"} Filter
         </Button>
         <Select
           colorScheme="facebook"
@@ -109,7 +109,7 @@ const Search = () => {
         />
         {products &&
           products.map((product, index) => {
-            return <ClothesCard key={index} productId={product._id} />;
+            return <ProductsCard key={index} productId={product._id} />;
           })}
         {products.length === 0 && (
           <Box display="flex" justifyContent="start">
@@ -135,7 +135,7 @@ const Search = () => {
                 px={10}
                 mt={10}
                 colorScheme="facebook"
-                onClick={() => navigate('/')}
+                onClick={() => navigate("/")}
               >
                 Start Shopping
               </Button>

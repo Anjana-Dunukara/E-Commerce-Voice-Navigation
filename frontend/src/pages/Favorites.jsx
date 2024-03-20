@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, Icon, Text, Heading, Button, SimpleGrid } from '@chakra-ui/react';
-import { Favorite } from '@mui/icons-material';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Box, Icon, Text, Heading, Button, SimpleGrid } from "@chakra-ui/react";
+import { Favorite } from "@mui/icons-material";
 
-import { getUserById } from '../services/UserServices';
-import { useUserContext } from '../contexts/UserContext';
-import ClothesCard from '../components/ClothesCard';
-import Voice from '../components/Voice';
+import { getUserById } from "../services/UserServices";
+import { useUserContext } from "../contexts/UserContext";
+import ProductsCard from "../components/ProductsCard";
+import Voice from "../components/Voice";
 
 const Favorites = () => {
   const { currentUser } = useUserContext();
@@ -19,13 +19,13 @@ const Favorites = () => {
     });
   }, [currentUser]);
 
-  if (currentUser !== '') {
+  if (currentUser !== "") {
     if (favorites.length !== 0) {
       return (
         <Box px={10} py={5}>
           <SimpleGrid columns={{ base: 1, sm: 2, lg: 3, xl: 4 }} spacing={3}>
             {favorites.map((favorite) => {
-              return <ClothesCard key={favorite} productId={favorite} />;
+              return <ProductsCard key={favorite} productId={favorite} />;
             })}
           </SimpleGrid>
           <Voice />
@@ -55,7 +55,7 @@ const Favorites = () => {
             px={10}
             mt={10}
             colorScheme="facebook"
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
           >
             Start Shopping
           </Button>
@@ -86,7 +86,7 @@ const Favorites = () => {
           px={10}
           mt={10}
           colorScheme="facebook"
-          onClick={() => navigate('/login')}
+          onClick={() => navigate("/login")}
         >
           Login
         </Button>

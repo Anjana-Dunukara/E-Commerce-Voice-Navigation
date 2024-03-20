@@ -18,7 +18,7 @@ import { addFavorite, deleteFavorite } from "../services/UserServices";
 import useGetFavoriteStatus from "../hooks/useGetFavoriteStatus";
 import ReviewModal from "./ReviewModal";
 
-const ClothesCard = ({ productId, isDelivered }) => {
+const ProductsCard = ({ productId, isDelivered }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [setCookies, removeCookie] = useCookies(["cart"]);
   const { cart, setCart, refresh, setRefresh } = useCartContext();
@@ -239,4 +239,4 @@ const ClothesCard = ({ productId, isDelivered }) => {
   );
 };
 
-export default ClothesCard;
+export default ProductsCard;

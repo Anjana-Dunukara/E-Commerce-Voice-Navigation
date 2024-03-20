@@ -39,11 +39,9 @@ const Home = () => {
       callback: (redirectPage) => setRedirectUrl(redirectPage),
     },
   ];
-
   const navigate = useNavigate();
   const { setSearch } = useSearchContext();
   const [miniImages, setMiniImages] = useState([]);
-
   const { transcript, resetTranscript } = useSpeechRecognition({ commands });
   const [redirectUrl, setRedirectUrl] = useState("");
   const pages = ["home", "search", "cart", "favorites", "login"];
@@ -79,43 +77,6 @@ const Home = () => {
     <Box>
       <Box display="flex" justifyContent="center" className="carousel">
         <Carousel />
-      </Box>
-      <Box bg="#E5AD66" mt={{ base: 5, md: 0 }}>
-        <Container
-          maxWidth={1200}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          flexDirection={{ base: "column", md: "row" }}
-          py={7}
-        >
-          <Box
-            color="#fff"
-            alignItems="center"
-            display="flex"
-            flexDirection="column"
-          >
-            <img className="banner" src={bannerImage} alt="bannerImage" />
-          </Box>
-          <Box
-            color="#fff"
-            alignItems="center"
-            display="flex"
-            flexDirection="column"
-            mt={{ base: 5, md: 0 }}
-          >
-            <img className="shopping" src={shoppingImage} alt="shoppingImage" />
-          </Box>
-          <Box
-            color="#fff"
-            alignItems="center"
-            display="flex"
-            flexDirection="column"
-            mt={{ base: 5, md: 0 }}
-          >
-            <img className="shgirl" src={shoppingGirl} alt="Logo image" />
-          </Box>
-        </Container>
       </Box>
       <SimpleGrid
         columns={{ base: 1, sm: 2 }}

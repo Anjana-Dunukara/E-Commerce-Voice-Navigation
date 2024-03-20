@@ -9,10 +9,9 @@
     },
     "keywords": [
         "eCommerce",
-        "Api",
-        "Clothes"
+        "Api"
     ],
-    "author": "Ahmed Semih Erkan",
+    "author": "Anjana Dunukara",
     "license": "MIT",
     "dependencies": {
         "bcryptjs": "^2.4.3",

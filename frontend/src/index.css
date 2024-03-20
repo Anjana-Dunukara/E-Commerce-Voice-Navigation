@@ -32,19 +32,11 @@ body {
 
 .voiceBtn {
   position: fixed;
-<<<<<<< HEAD
-  bottom: 80px; 
-  right: 20px; 
-  color: black;
-  background-color: rgb(66, 89, 219);
-  z-index: 999; 
-=======
   top: 140px;
   right: 20px;
   color: black;
   background-color: #385898;
   z-index: 2;
->>>>>>> upstream/main
   padding: 14px;
   cursor: pointer;
   font-size: 2rem;

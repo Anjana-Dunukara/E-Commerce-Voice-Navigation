@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-import { Box } from '@chakra-ui/react';
-=======
 import React, { useState } from "react";
 import { Box } from "@chakra-ui/react";
 import SpeechRecognition, {
@@ -8,7 +5,6 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { useNavigate } from "react-router-dom";
 import { MdKeyboardVoice } from "react-icons/md";
->>>>>>> upstream/main
 
 const Footer = () => {
   //   const commands = [

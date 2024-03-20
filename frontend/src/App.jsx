@@ -1,6 +1,5 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -52,10 +51,7 @@ const App = () => {
         {admin ? (
           <>
             <Route path="/admin/products" element={<ProductsforAdmin />} />
-<<<<<<< HEAD
-=======
             <Route path="/admin/users" element={<UsersforAdmin />} />
->>>>>>> upstream/main
             <Route path="/admin/categories" element={<CategoriesforAdmin />} />
             <Route path="/admin/orders" element={<OrdersforAdmin />} />
             <Route path="/admin/images" element={<ImagesforAdmin />} />

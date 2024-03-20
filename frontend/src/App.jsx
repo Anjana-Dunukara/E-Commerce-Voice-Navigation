@@ -52,7 +52,10 @@ const App = () => {
         {admin ? (
           <>
             <Route path="/admin/products" element={<ProductsforAdmin />} />
+<<<<<<< HEAD
+=======
             <Route path="/admin/users" element={<UsersforAdmin />} />
+>>>>>>> upstream/main
             <Route path="/admin/categories" element={<CategoriesforAdmin />} />
             <Route path="/admin/orders" element={<OrdersforAdmin />} />
             <Route path="/admin/images" element={<ImagesforAdmin />} />

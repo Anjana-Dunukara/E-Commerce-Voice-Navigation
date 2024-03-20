@@ -15,6 +15,7 @@ import {
 import { Favorite, FavoriteBorder, Info } from '@mui/icons-material';
 import StarRatings from 'react-star-ratings';
 
+<<<<<<< HEAD
 import Comment from '../components/Comment';
 import ReviewModal from '../components/ReviewModal';
 import { useCartContext } from '../contexts/CartContext';
@@ -26,6 +27,19 @@ import { getCommentByProductId } from '../services/CommentServices';
 import { getRatingByProductId } from '../services/RatingServices';
 import useGetUserHaveThis from '../hooks/useGetUserHaveThis';
 import Voice from '../components/Voice';
+=======
+import Comment from "../components/Comment";
+import ReviewModal from "../components/ReviewModal";
+import { useCartContext } from "../contexts/CartContext";
+import { useUserContext } from "../contexts/UserContext";
+import useGetFavoriteStatus from "../hooks/useGetFavoriteStatus";
+import { getProductById } from "../services/ProductServices";
+import { addFavorite, deleteFavorite } from "../services/UserServices";
+import { getCommentByProductId } from "../services/CommentServices";
+import { getRatingByProductId } from "../services/RatingServices";
+import useGetUserHaveThis from "../hooks/useGetUserHaveThis";
+import { getOrdersByUserId } from "../services/OrderServices";
+>>>>>>> upstream/main
 
 const Product = () => {
   const toast = useToast();
@@ -210,8 +224,13 @@ const Product = () => {
                       variant={
                         selectedLocation === location ? 'solid' : 'outline'
                       }
+<<<<<<< HEAD
                       width={{ base: '25px', sm: '35px', lg: '50px' }}
                       height={{ base: '30px', sm: '40px', lg: '50px' }}
+=======
+                      width={{ base: "60px", sm: "70px", lg: "85px" }}
+                      height={{ base: "30px", sm: "40px", lg: "50px" }}
+>>>>>>> upstream/main
                     >
                       {location}
                     </Button>

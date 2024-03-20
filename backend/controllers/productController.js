@@ -1,5 +1,5 @@
-const Product = require('../models/Product');
-const { ObjectId } = require('mongodb');
+const Product = require("../models/Product");
+const { ObjectId } = require("mongodb");
 
 exports.getAllProducts = async (req, res) => {
   try {
@@ -10,7 +10,7 @@ exports.getAllProducts = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: 'failed',
+      status: "failed",
       error,
     });
   }
@@ -25,7 +25,7 @@ exports.getProductById = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: 'failed',
+      status: "failed",
       error,
     });
   }
@@ -46,7 +46,7 @@ exports.getProductsByColor = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: 'failed',
+      status: "failed",
       error,
     });
   }
@@ -61,7 +61,7 @@ exports.getProductsByCategoryId = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: 'failed',
+      status: "failed",
       error,
     });
   }
@@ -82,7 +82,7 @@ exports.getProductsByCondition = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: 'failed',
+      status: "failed",
       error,
     });
   }
@@ -102,7 +102,7 @@ exports.getProductsByPrice = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: 'failed',
+      status: "failed",
       error,
     });
   }
@@ -117,7 +117,7 @@ exports.getProductsByStatus = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: 'failed',
+      status: "failed",
       error,
     });
   }
@@ -126,7 +126,7 @@ exports.getProductsByStatus = async (req, res) => {
 exports.getProductsBySearch = async (req, res) => {
   try {
     const products = await Product.find({
-      name: { $regex: '.*' + req.params.search + '.*', $options: 'i' },
+      name: { $regex: ".*" + req.params.search + ".*", $options: "i" },
     });
 
     res.status(200).json({
@@ -134,7 +134,7 @@ exports.getProductsBySearch = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: 'failed',
+      status: "failed",
       error,
     });
   }
@@ -156,7 +156,7 @@ exports.getProductsByQueries = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: 'failed',
+      status: "failed",
       error,
     });
   }
@@ -169,11 +169,11 @@ exports.addProduct = async (req, res) => {
       newProduct,
     });
   } catch (error) {
-    console.error('Error adding product:', error);
+    console.error("Error adding product:", error);
     res.status(400).json({
-      status: 'failed',
+      status: "failed",
       error,
-      status: 'failed',
+      status: "failed",
       error: error.message,
     });
   }
@@ -188,10 +188,9 @@ exports.updateProduct = async (req, res) => {
     res.status(200).json({
       product,
     });
-    console.log(product);
   } catch (error) {
     res.status(400).json({
-      status: 'failed',
+      status: "failed",
       error,
     });
   }
@@ -206,7 +205,7 @@ exports.deleteProduct = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: 'failed',
+      status: "failed",
       error,
     });
   }

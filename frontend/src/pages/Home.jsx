@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdKeyboardVoice } from 'react-icons/md';
@@ -5,6 +6,11 @@ import bannerImage from '../assets/banner.png';
 import shoppingImage from '../assets/shopping.png';
 import wecart from '../assets/wecart.png';
 import shoppingGirl from '../assets/shoppinggirl.png';
+=======
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { MdKeyboardVoice } from "react-icons/md";
+>>>>>>> upstream/main
 import {
   Box,
   Text,
@@ -12,13 +18,14 @@ import {
   SimpleGrid,
   Image,
   CircularProgress,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 import {
   AccountBalanceWallet,
   AssignmentReturn,
   WorkspacePremium,
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
+<<<<<<< HEAD
 import Carousel from '../components/Carousel';
 import { getAllMiniImages } from '../services/ImageServices';
 import { useSearchContext } from '../contexts/SearchContext';
@@ -26,6 +33,14 @@ import Voice from '../components/Voice';
 // import SpeechRecognition, {
 //   useSpeechRecognition,
 // } from 'react-speech-recognition';
+=======
+import Carousel from "../components/Carousel";
+import { getAllMiniImages } from "../services/ImageServices";
+import { useSearchContext } from "../contexts/SearchContext";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+>>>>>>> upstream/main
 
 const Home = () => {
   useEffect(() => {
@@ -34,16 +49,26 @@ const Home = () => {
     });
   }, []);
 
+<<<<<<< HEAD
   // const commands = [
   //   {
   //     command: ['Open *'],
   //     callback: (redirectPage) => setRedirectUrl(redirectPage),
   //   },
   // ];
+=======
+  const commands = [
+    {
+      command: ["Open *"],
+      callback: (redirectPage) => setRedirectUrl(redirectPage),
+    },
+  ];
+>>>>>>> upstream/main
 
   const navigate = useNavigate();
   const { setSearch } = useSearchContext();
   const [miniImages, setMiniImages] = useState([]);
+<<<<<<< HEAD
   // const { transcript, resetTranscript } = useSpeechRecognition({ commands });
   // const [redirectUrl, setRedirectUrl] = useState('');
   // const pages = ['home', 'search', 'cart', 'favorites', 'login'];
@@ -54,11 +79,24 @@ const Home = () => {
   //   favorites: '/favorites',
   //   login: '/login',
   // };
+=======
+  const { transcript, resetTranscript } = useSpeechRecognition({ commands });
+  const [redirectUrl, setRedirectUrl] = useState("");
+  const pages = ["home", "search", "cart", "favorites", "login"];
+  const urls = {
+    home: "/",
+    search: "/search",
+    cart: "/cart",
+    favorites: "/favorites",
+    login: "/login",
+  };
+>>>>>>> upstream/main
 
   // if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
   //   return null;
   // }
 
+<<<<<<< HEAD
   // if (redirectUrl) {
   //   if (pages.includes(redirectUrl)) {
   //     navigate(urls[redirectUrl]);
@@ -66,14 +104,23 @@ const Home = () => {
   //     console.log('Error');
   //   }
   // }
+=======
+  if (redirectUrl) {
+    if (pages.includes(redirectUrl)) {
+      navigate(urls[redirectUrl]);
+    } else {
+      console.log("Error");
+    }
+  }
+>>>>>>> upstream/main
 
   // const handleVoiceCommand = () => {
   //   SpeechRecognition.startListening();
   // };
 
   const onClickImage = () => {
-    setSearch('a');
-    navigate('/search');
+    setSearch("a");
+    navigate("/search");
   };
 
   return (
@@ -87,7 +134,7 @@ const Home = () => {
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          flexDirection={{ base: 'column', md: 'row' }}
+          flexDirection={{ base: "column", md: "row" }}
           py={7}
         >
           <Box

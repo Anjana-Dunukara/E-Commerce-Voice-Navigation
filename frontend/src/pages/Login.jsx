@@ -25,7 +25,7 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const [remember, setRemember] = useState(false);
   const { setCurrentUser } = useUserContext();
-  const [cookies, setCookie, removeCookie] = useCookies(["currentUser"]);
+  const [setCookie, removeCookie] = useCookies(["currentUser"]);
   const navigate = useNavigate();
   const toast = useToast();
 

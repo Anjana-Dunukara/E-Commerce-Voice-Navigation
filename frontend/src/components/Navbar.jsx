@@ -23,7 +23,6 @@ import {
   Inventory,
   Group,
   Edit,
-  Image,
   Reviews,
 } from "@mui/icons-material";
 
@@ -43,7 +42,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useUserContext();
   const { cart, refresh } = useCartContext();
-  const [cookies, setCookie, removeCookie] = useCookies(["currentUser"]);
+  const [cookies, removeCookie] = useCookies(["currentUser"]);
   const [admin] = useGetUserRole(currentUser);
 
   useEffect(() => {

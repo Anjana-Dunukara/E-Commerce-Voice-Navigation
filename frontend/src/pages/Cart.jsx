@@ -21,7 +21,7 @@ import Voice from "../components/Voice";
 const Cart = () => {
   const toast = useToast();
   const { currentUser } = useUserContext();
-  const [cookies, setCookie, removeCookie] = useCookies(["cart"]);
+  const [cookies, removeCookie] = useCookies(["cart"]);
   const { cart, setCart, refresh } = useCartContext();
   const navigate = useNavigate();
   const [totalPrice, setTotalPrice] = useState(0);

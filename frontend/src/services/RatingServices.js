@@ -28,6 +28,13 @@ export const getRatingByProductId = async (productId) => {
   return data;
 };
 
+export const getUserData = async (userId) => {
+  const { data } = await axios.get(
+    `${process.env.REACT_APP_API_BASE_URL}/ratings/author/${userId}`
+  );
+  return data;
+};
+
 export const addRating = async (product, rating, owner) => {
   const { data } = await axios.post(
     `${process.env.REACT_APP_API_BASE_URL}/ratings`,

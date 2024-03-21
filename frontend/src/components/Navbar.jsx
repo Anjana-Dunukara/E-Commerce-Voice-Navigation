@@ -24,6 +24,7 @@ import {
   Group,
   Edit,
   Image,
+  Reviews,
 } from "@mui/icons-material";
 
 import { getAllGenres } from "../services/GenreServices";
@@ -127,6 +128,9 @@ const Navbar = () => {
                     </MenuItem>
                     <MenuItem onClick={() => navigate("/orders")}>
                       <ShoppingBag sx={{ marginRight: 2 }} /> Orders
+                    </MenuItem>
+                    <MenuItem onClick={() => navigate("/reviews")}>
+                      <Reviews sx={{ marginRight: 2 }} /> My Reviews
                     </MenuItem>
                   </MenuGroup>
                   <Divider />

@@ -48,7 +48,7 @@ const ReviewModal = ({ onClose, isOpen, productId }) => {
   }, [ratingId, commentId, rating]);
 
   const onClickSend = () => {
-    addRating(productId.id, rating, currentUser).then((result) => {
+    addRating(productId, rating, currentUser).then((result) => {
       if (result.status) {
         toast({
           title: "Error!",
@@ -58,7 +58,7 @@ const ReviewModal = ({ onClose, isOpen, productId }) => {
           isClosable: true,
         });
       } else {
-        addComment(productId.id, comment, currentUser).then((result) => {
+        addComment(productId, comment, currentUser).then((result) => {
           if (result.status) {
             toast({
               title: "Error!",

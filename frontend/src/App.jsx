@@ -21,6 +21,7 @@ import ImagesforAdmin from "./pages/ImagesforAdmin";
 import { useUserContext } from "./contexts/UserContext";
 import useGetUserRole from "./hooks/useGetUserRole";
 import UsersforAdmin from "./pages/UsersforAdmin";
+import Reviews from "./pages/Reviews";
 
 const App = () => {
   const { currentUser } = useUserContext();
@@ -44,6 +45,10 @@ const App = () => {
         <Route
           path="/orders"
           element={currentUser ? <Orders /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/reviews"
+          element={currentUser ? <Reviews /> : <Navigate to="/" />}
         />
         <Route path="/purchase" element={<Purchase />} />
         <Route path="/search" element={<Search />} />

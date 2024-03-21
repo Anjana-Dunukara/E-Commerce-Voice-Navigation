@@ -31,7 +31,8 @@ import Voice from '../components/Voice';
 const Product = () => {
   const toast = useToast();
   const location = useLocation();
-  const { cart, setCart, refresh, setRefresh } = useCartContext();
+  const { refresh, setRefresh } = useCartContext();
+  const [cart, setCart] = useState([]);
   const { currentUser } = useUserContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [status] = useGetFavoriteStatus(currentUser, location.state.productId);

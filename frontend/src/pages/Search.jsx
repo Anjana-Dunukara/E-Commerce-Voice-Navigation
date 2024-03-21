@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 
 import ClothesCard from '../components/ClothesCard';
-import FilterMenu from '../components/FilterMenu';
+// import FilterMenu from '../components/FilterMenu';
 import {
   getProductByCategoryId,
   getProductBySearch,
@@ -101,12 +101,12 @@ const Search = () => {
         </Select>
       </Box>
       <SimpleGrid minChildWidth={280} gap={3} spacingX={5}>
-        <FilterMenu
+        {/* <FilterMenu
           openFilter={openFilter}
           columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }}
           setProducts={setProducts}
           setSortBy={setSortBy}
-        />
+        /> */}
         {products &&
           products.map((product, index) => {
             return <ClothesCard key={index} productId={product._id} />;

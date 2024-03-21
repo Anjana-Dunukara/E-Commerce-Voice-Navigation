@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import {
   Box,
   Image,
@@ -8,25 +8,26 @@ import {
   Icon,
   Button,
   useDisclosure,
-} from "@chakra-ui/react";
-import { Favorite, RateReview, ShoppingCart } from "@mui/icons-material";
+} from '@chakra-ui/react';
+import { Favorite, RateReview, ShoppingCart } from '@mui/icons-material';
 
-import { useCartContext } from "../contexts/CartContext";
-import { useUserContext } from "../contexts/UserContext";
-import { getProductById } from "../services/ProductServices";
-import { addFavorite, deleteFavorite } from "../services/UserServices";
-import useGetFavoriteStatus from "../hooks/useGetFavoriteStatus";
-import ReviewModal from "./ReviewModal";
+import { useCartContext } from '../contexts/CartContext';
+import { useUserContext } from '../contexts/UserContext';
+import { getProductById } from '../services/ProductServices';
+import { addFavorite, deleteFavorite } from '../services/UserServices';
+import useGetFavoriteStatus from '../hooks/useGetFavoriteStatus';
+import ReviewModal from './ReviewModal';
 
 const ClothesCard = ({ productId, isDelivered }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [setCookies, removeCookie] = useCookies(["cart"]);
+  const [cookies, setCookies, removeCookie] = useCookies(['cart']);
   const { cart, setCart, refresh, setRefresh } = useCartContext();
+  // const [cart, setCart] = useState([]);
   const { currentUser } = useUserContext();
   const [status] = useGetFavoriteStatus(currentUser, productId);
   const navigate = useNavigate();
 
-  const [product, setProduct] = useState("");
+  const [product, setProduct] = useState('');
   const [isFavorite, setIsFavorite] = useState(false);
   const [inCart, setInCart] = useState(false);
   const [amount, setAmount] = useState(0);
@@ -62,7 +63,7 @@ const ClothesCard = ({ productId, isDelivered }) => {
       cart[currentIndex].amount += 1;
       cart[currentIndex].price = product.price * cart[currentIndex].amount;
       setAmount(amount + 1);
-      setCookies("cart", cart, { path: "/" });
+      setCookies('cart', cart, { path: '/' });
     } else {
       setCart([
         ...cart,
@@ -72,7 +73,7 @@ const ClothesCard = ({ productId, isDelivered }) => {
           price: product.price,
         },
       ]);
-      setCookies("cart", cart, { path: "/" });
+      setCookies('cart', cart, { path: '/' });
     }
     setRefresh(!refresh);
   };
@@ -86,9 +87,9 @@ const ClothesCard = ({ productId, isDelivered }) => {
           index !== currentIndex && newCart.push(item);
         });
         if (cart.length === 1) {
-          removeCookie("cart", { path: "/" });
+          removeCookie('cart', { path: '/' });
         } else {
-          setCookies("cart", newCart, { path: "/" });
+          setCookies('cart', newCart, { path: '/' });
         }
         setInCart(false);
         setCart(newCart);
@@ -98,7 +99,7 @@ const ClothesCard = ({ productId, isDelivered }) => {
           cart[currentIndex].price / cart[currentIndex].amount;
         cart[currentIndex].amount -= 1;
         setAmount(amount - 1);
-        setCookies("cart", cart, { path: "/" });
+        setCookies('cart', cart, { path: '/' });
       }
     }
     setRefresh(!refresh);
@@ -205,8 +206,8 @@ const ClothesCard = ({ productId, isDelivered }) => {
                     as={Favorite}
                     fontSize={36}
                     transition={0.5}
-                    color={!isFavorite ? "blackAlpha.400" : "facebook.500"}
-                    _hover={{ color: "facebook.500" }}
+                    color={!isFavorite ? 'blackAlpha.400' : 'facebook.500'}
+                    _hover={{ color: 'facebook.500' }}
                   />
                   <Icon
                     onClick={onClickAddCart}
@@ -214,7 +215,7 @@ const ClothesCard = ({ productId, isDelivered }) => {
                     fontSize={36}
                     transition={0.5}
                     color="blackAlpha.400"
-                    _hover={{ color: "facebook.500" }}
+                    _hover={{ color: 'facebook.500' }}
                     ms={{ base: 2, md: 5 }}
                   />
                 </>
@@ -226,7 +227,7 @@ const ClothesCard = ({ productId, isDelivered }) => {
                   fontSize={36}
                   transition={0.5}
                   color="blackAlpha.400"
-                  _hover={{ color: "facebook.500" }}
+                  _hover={{ color: 'facebook.500' }}
                   ms={{ base: 2, md: 5 }}
                 />
               )}

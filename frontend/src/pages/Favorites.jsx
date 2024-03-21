@@ -11,20 +11,20 @@ import Voice from '../components/Voice';
 const Favorites = () => {
   const { currentUser } = useUserContext();
   const navigate = useNavigate();
-  const [favorites, setFavorites] = useState([]);
+  const [userFavorites, setUserFavorites] = useState([]);
 
   useEffect(() => {
     getUserById(currentUser).then((result) => {
-      setFavorites(result.user.favorites);
+      setUserFavorites(result.user.favorites);
     });
   }, [currentUser]);
 
   if (currentUser !== '') {
-    if (favorites.length !== 0) {
+    if (userFavorites.length !== 0) {
       return (
         <Box px={10} py={5}>
           <SimpleGrid columns={{ base: 1, sm: 2, lg: 3, xl: 4 }} spacing={3}>
-            {favorites.map((favorite) => {
+            {userFavorites.map((favorite) => {
               return <ClothesCard key={favorite} productId={favorite} />;
             })}
           </SimpleGrid>

@@ -46,7 +46,7 @@ const Searchbar = () => {
           <Input
             name="search"
             pr="4.5rem"
-            placeholder="Search for clothes..."
+            placeholder="Search for Groceries..."
             onInput={handleInput}
           />
           <InputRightElement width="4rem">

@@ -11,15 +11,13 @@ body {
   position: relative;
 }
 
-/* .carousel {
-  margin-left: 23%;
-  width: 50%;
-  height: 50%;
-} */
-
-.shopping {
-  width: 70%;
+.carousel {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
+
+
 
 .banner {
   width: 60%;

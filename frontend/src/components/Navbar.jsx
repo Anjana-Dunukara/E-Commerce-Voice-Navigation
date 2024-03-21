@@ -64,6 +64,7 @@ const Navbar = () => {
     removeCookie("currentUser", { path: "/" });
     removeCookie("cart", { path: "/" });
     setCurrentUser("");
+    navigate("/login");
   };
 
   return (

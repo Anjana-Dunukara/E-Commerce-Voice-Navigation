@@ -1,10 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box } from "@chakra-ui/react";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
-import { useNavigate } from "react-router-dom";
-import { MdKeyboardVoice } from "react-icons/md";
 
 const Footer = () => {
   //   const commands = [

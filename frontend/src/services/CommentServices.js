@@ -28,6 +28,16 @@ export const getCommentByProductId = async (id) => {
   return data;
 };
 
+export const getCommentByAuthorProductId = async (author, id) => {
+  const { data } = await axios.get(
+    `${process.env.REACT_APP_API_BASE_URL}/comments/product/${id}`,
+    {
+      author: author,
+    }
+  );
+  return data;
+};
+
 export const addComment = async (productId, comment, author) => {
   const { data } = await axios.post(
     `${process.env.REACT_APP_API_BASE_URL}/comments`,

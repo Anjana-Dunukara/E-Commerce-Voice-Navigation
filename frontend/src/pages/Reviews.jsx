@@ -71,6 +71,7 @@ const Reviews = () => {
                 <Th>Image</Th>
                 <Th>Review ID</Th>
                 <Th>Product ID</Th>
+                <Th>PRoduct Name</Th>
                 <Th>Description</Th>
                 <Th>Rating</Th>
               </Tr>
@@ -83,6 +84,7 @@ const Reviews = () => {
                   </Td>
                   <Td>{rating._id}</Td>
                   <Td>{rating.for._id}</Td>
+                  <Td>{rating.for.name}</Td>
                   <Td>{rating.for.description}</Td>
                   <Td>
                     <StarRatings

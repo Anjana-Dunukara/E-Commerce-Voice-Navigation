@@ -19,6 +19,7 @@ import { useFormik } from "formik";
 
 import { useUserContext } from "../contexts/UserContext";
 import LoginValidations from "../validations/LoginValidations";
+import Voice from "../components/Voice";
 import { Login as LogIn } from "../services/AuthServices";
 
 const Login = () => {

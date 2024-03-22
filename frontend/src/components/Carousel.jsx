@@ -38,7 +38,6 @@ const Carousel = () => {
 
   const onClickImage = () => {
     setSearch('a');
-    navigate('/search');
   };
 
   return (

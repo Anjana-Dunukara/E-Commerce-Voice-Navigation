@@ -58,13 +58,11 @@ const Navbar = () => {
       });
     }
     setItemCount(count);
-  }, [refresh, cart, cookies.cart]);
+  }, [refresh, cart, cookies.cart, admin]);
 
   const Logout = () => {
     removeCookie("currentUser", { path: "/" });
-    removeCookie("cart", { path: "/" });
     setCurrentUser("");
-    navigate("/login");
   };
 
   return (

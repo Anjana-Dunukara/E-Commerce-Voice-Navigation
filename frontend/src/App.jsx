@@ -40,15 +40,15 @@ const App = () => {
         <Route path="/product/:id" element={<Product />} />
         <Route
           path="/infos"
-          element={currentUser ? <Infos /> : <Navigate to="/" />}
+          element={currentUser ? <Infos /> : <Navigate to="/login" />}
         />
         <Route
           path="/orders"
-          element={currentUser ? <Orders /> : <Navigate to="/" />}
+          element={currentUser ? <Orders /> : <Navigate to="/login" />}
         />
         <Route
           path="/reviews"
-          element={currentUser ? <Reviews /> : <Navigate to="/" />}
+          element={currentUser ? <Reviews /> : <Navigate to="/login" />}
         />
         <Route path="/purchase" element={<Purchase />} />
         <Route path="/search" element={<Search />} />

@@ -31,8 +31,7 @@ import Voice from "../components/Voice";
 const Product = () => {
   const toast = useToast();
   const location = useLocation();
-  const { refresh, setRefresh } = useCartContext();
-  const [cart, setCart] = useState([]);
+  const { cart, setCart, refresh, setRefresh } = useCartContext();
   const { currentUser } = useUserContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [status] = useGetFavoriteStatus(currentUser, location.state.productId);
@@ -45,11 +44,12 @@ const Product = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [inCart, setInCart] = useState(false);
   const [amount, setAmount] = useState(0);
-  const [setCookies, removeCookie] = useCookies(["cart"]);
+  const [setCookie, removeCookie] = useCookies(["cart"]);
   const [have] = useGetUserHaveThis(currentUser, location.state.productId);
 
   useEffect(() => {
     setIsFavorite(status);
+    setSelectedLocation("Sri Lanka");
 
     getProductById(location.state.productId).then((result) => {
       setProduct(result.product);
@@ -96,7 +96,7 @@ const Product = () => {
         cart[currentIndex].amount += 1;
         cart[currentIndex].price = product.price * cart[currentIndex].amount;
         setAmount(amount + 1);
-        setCookies("cart", cart, { path: "/" });
+        setCookie("cart", cart, { path: "/" });
       } else {
         setCart([
           ...cart,
@@ -106,7 +106,7 @@ const Product = () => {
             price: product.price,
           },
         ]);
-        setCookies("cart", cart, { path: "/" });
+        setCookie("cart", cart, { path: "/" });
       }
       setRefresh(!refresh);
     } else {
@@ -133,7 +133,7 @@ const Product = () => {
         if (cart.length === 1) {
           removeCookie("cart", { path: "/" });
         } else {
-          setCookies("cart", newCart, { path: "/" });
+          setCookie("cart", newCart, { path: "/" });
         }
         setInCart(false);
         setCart(newCart);
@@ -143,7 +143,7 @@ const Product = () => {
           cart[currentIndex].price / cart[currentIndex].amount;
         cart[currentIndex].amount -= 1;
         setAmount(amount - 1);
-        setCookies("cart", cart, { path: "/" });
+        setCookie("cart", cart, { path: "/" });
       }
     }
     setRefresh(!refresh);
@@ -198,7 +198,7 @@ const Product = () => {
                 Price : <b> {product.price}$ </b>{" "}
               </Text>
               <Divider />
-              <Text mt={3} fontSize={20} fontWeight={500}>
+              {/* <Text mt={3} fontSize={20} fontWeight={500}>
                 Shiping Locations
               </Text>
               <Box mt={3} display="flex">
@@ -219,7 +219,14 @@ const Product = () => {
                     </Button>
                   );
                 })}
+              </Box> */}
+              <Box mt={3}>
+                <Text fontSize={24} fontWeight={500}>
+                  Description
+                </Text>
+                <Box mt={3}>{product.description}</Box>
               </Box>
+              <Divider />
               <Box
                 mt={10}
                 mb={5}
@@ -289,12 +296,6 @@ const Product = () => {
                 </Button>
               </Box>
               <Divider />
-              <Box mt={3}>
-                <Text fontSize={24} fontWeight={500}>
-                  Description
-                </Text>
-                <Box mt={3}>{product.description}</Box>
-              </Box>
             </Box>
           </SimpleGrid>
         </Box>

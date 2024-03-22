@@ -41,7 +41,7 @@ const Navbar = () => {
   const [itemCount, setItemCount] = useState(0);
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useUserContext();
-  const { cart, refresh } = useCartContext();
+  const { setCart, cart, refresh, setRefresh } = useCartContext();
   const [cookies, removeCookie] = useCookies(["currentUser"]);
   const [admin] = useGetUserRole(currentUser);
 
@@ -62,7 +62,10 @@ const Navbar = () => {
 
   const Logout = () => {
     removeCookie("currentUser", { path: "/" });
+    removeCookie("cart", { path: "/" });
     setCurrentUser("");
+    setCart([]);
+    setRefresh(!refresh);
   };
 
   return (

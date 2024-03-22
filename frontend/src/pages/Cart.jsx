@@ -23,6 +23,7 @@ const Cart = () => {
   const { currentUser } = useUserContext();
   const [cookies, removeCookie] = useCookies(["cart"]);
   const { cart, setCart, refresh } = useCartContext();
+  // const [cart, setCart] = useState([]);
   const navigate = useNavigate();
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);

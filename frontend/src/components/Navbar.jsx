@@ -58,7 +58,7 @@ const Navbar = () => {
       });
     }
     setItemCount(count);
-  }, [refresh, cart, cookies.cart, admin]);
+  }, [refresh, cart, cookies.cart]);
 
   const Logout = () => {
     removeCookie("currentUser", { path: "/" });

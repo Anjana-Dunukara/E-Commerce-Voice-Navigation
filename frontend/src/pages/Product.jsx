@@ -25,11 +25,14 @@ import { addFavorite, deleteFavorite } from "../services/UserServices";
 import { getCommentByProductId } from "../services/CommentServices";
 import { getRatingByProductId } from "../services/RatingServices";
 import useGetUserHaveThis from "../hooks/useGetUserHaveThis";
+import { getOrdersByUserId } from "../services/OrderServices";
+import Voice from "../components/Voice";
 
 const Product = () => {
   const toast = useToast();
   const location = useLocation();
-  const { cart, setCart, refresh, setRefresh } = useCartContext();
+  const { refresh, setRefresh } = useCartContext();
+  const [cart, setCart] = useState([]);
   const { currentUser } = useUserContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [status] = useGetFavoriteStatus(currentUser, location.state.productId);

@@ -68,7 +68,7 @@ const UsersforAdmin = () => {
                   <Tr key={User._id}>
                     <Td>{User._id}</Td>
                     <Td>{User.firstName}</Td>
-                    <Td>{User.lastNmae}</Td>
+                    <Td>{User.lastName}</Td>
                     <Td>{User.email}</Td>
                     <Td>{User.phone}</Td>
                     <Td>

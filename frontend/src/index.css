@@ -28,11 +28,11 @@ body {
 
 .voiceBtn {
   position: fixed;
-  top: 140px;
-  right: 20px;
+  bottom: 60px;
+  right: 60px;
   color: black;
-  background-color: #385898;
-  z-index: 2;
+  background-color: rgb(66, 89, 219);
+  z-index: 999;
   padding: 14px;
   cursor: pointer;
   font-size: 2rem;

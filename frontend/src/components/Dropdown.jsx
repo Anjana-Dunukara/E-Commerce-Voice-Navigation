@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   useDisclosure,
   MenuItem,
@@ -7,9 +7,9 @@ import {
   MenuButton,
   MenuList,
   Box,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
-import { getCategoryByGenre } from "../services/CategoryServices";
+import { getCategoryByGenre } from '../services/CategoryServices';
 
 const Dropdown = ({ title, genreId }) => {
   const navigate = useNavigate();
@@ -23,30 +23,29 @@ const Dropdown = ({ title, genreId }) => {
   }, [genreId]);
 
   const handleClick = (categoryId) => {
-    navigate("/search", { state: { categoryId: categoryId } });
+    navigate('/search', { state: { categoryId: categoryId } });
   };
 
   return (
     categories.length !== 0 && (
       <Box pe={{ base: 2, md: 10 }}>
-        <Menu isOpen={isOpen}>
+        <Menu isOpen={isOpen} onClose={onClose}>
           <MenuButton
             color="blackAlpha.700"
             fontSize={20}
             fontWeight={500}
             variant="outline"
-            onMouseEnter={onOpen}
-            onMouseLeave={onClose}
+            onClick={isOpen ? onClose : onOpen} // Toggles menu open/close on click
             borderBottom="3px solid white"
             transition={0.5}
             _hover={{
-              color: "facebook.500",
-              borderBottom: "3px solid #385898",
+              color: 'facebook.500',
+              borderBottom: '3px solid #385898',
             }}
           >
             {title}
           </MenuButton>
-          <MenuList onMouseEnter={onOpen} onMouseLeave={onClose}>
+          <MenuList>
             {categories &&
               categories.map((category) => {
                 return (

@@ -93,13 +93,18 @@ const Product = () => {
         (item) => item.id === location.state.productId
       );
       if (currentIndex >= 0) {
-        cart[currentIndex].amount += 1;
-        cart[currentIndex].price = product.price * cart[currentIndex].amount;
+        setCart((prevCart) => {
+          const updatedCart = [...prevCart];
+          updatedCart[currentIndex].amount += 1;
+          updatedCart[currentIndex].price =
+            product.price * updatedCart[currentIndex].amount;
+          return updatedCart;
+        });
         setAmount(amount + 1);
         setCookie("cart", cart, { path: "/" });
       } else {
-        setCart([
-          ...cart,
+        setCart((prevCart) => [
+          ...prevCart,
           {
             id: location.state.productId,
             amount: 1,
@@ -125,26 +130,19 @@ const Product = () => {
       (item) => item.id === location.state.productId
     );
     if (currentIndex >= 0) {
-      if (cart[currentIndex].amount === 1) {
-        const newCart = new Array([]);
-        cart.forEach((item, index) => {
-          index !== currentIndex && newCart.push(item);
-        });
-        if (cart.length === 1) {
-          removeCookie("cart", { path: "/" });
+      setCart((prevCart) => {
+        const updatedCart = [...prevCart];
+        if (updatedCart[currentIndex].amount === 1) {
+          updatedCart.splice(currentIndex, 1);
         } else {
-          setCookie("cart", newCart, { path: "/" });
+          updatedCart[currentIndex].price -=
+            product.price / updatedCart[currentIndex].amount;
+          updatedCart[currentIndex].amount -= 1;
         }
-        setInCart(false);
-        setCart(newCart);
-        setAmount(amount - 1);
-      } else {
-        cart[currentIndex].price -=
-          cart[currentIndex].price / cart[currentIndex].amount;
-        cart[currentIndex].amount -= 1;
-        setAmount(amount - 1);
-        setCookie("cart", cart, { path: "/" });
-      }
+        return updatedCart;
+      });
+      setAmount(amount - 1);
+      setCookie("cart", cart, { path: "/" });
     }
     setRefresh(!refresh);
   };

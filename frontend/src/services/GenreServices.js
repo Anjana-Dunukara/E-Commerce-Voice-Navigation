@@ -1,44 +1,54 @@
-import axios from "axios";
+import axios from 'axios';
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export const getAllGenres = async () => {
-  const { data } = await axios.get(
-    `${process.env.REACT_APP_API_BASE_URL}/genres`
-  );
-  return data;
+  try {
+    const { data } = await axios.get(`${API_BASE_URL}/genres`);
+    return data;
+  } catch (error) {
+    throw new Error(`Error fetching all genres: ${error.message}`);
+  }
 };
 
 export const getGenreById = async (id) => {
-  const { data } = await axios.get(
-    `${process.env.REACT_APP_API_BASE_URL}/genres/${id}`
-  );
-  return data;
+  try {
+    const { data } = await axios.get(`${API_BASE_URL}/genres/${id}`);
+    return data;
+  } catch (error) {
+    throw new Error(`Error fetching genre by ID: ${error.message}`);
+  }
 };
 
 export const addGenre = async (name, status) => {
-  const { data } = await axios.post(
-    `${process.env.REACT_APP_API_BASE_URL}/genres`,
-    {
+  try {
+    const { data } = await axios.post(`${API_BASE_URL}/genres`, {
       name,
       status,
-    }
-  );
-  return data;
+    });
+    return data;
+  } catch (error) {
+    throw new Error(`Error adding genre: ${error.message}`);
+  }
 };
 
 export const updateGenre = async (id, name, status) => {
-  const { data } = await axios.put(
-    `${process.env.REACT_APP_API_BASE_URL}/genres/${id}`,
-    {
+  try {
+    const { data } = await axios.put(`${API_BASE_URL}/genres/${id}`, {
       name,
       status,
-    }
-  );
-  return data;
+    });
+    return data;
+  } catch (error) {
+    throw new Error(`Error updating genre: ${error.message}`);
+  }
 };
 
 export const deleteGenre = async (id) => {
-  const { data } = await axios.delete(
-    `${process.env.REACT_APP_API_BASE_URL}/genres/${id}`
-  );
-  return data;
+  try {
+    const { data } = await axios.delete(`${API_BASE_URL}/genres/${id}`);
+    return data;
+  } catch (error) {
+    throw new Error(`Error deleting genre: ${error.message}`);
+  }
 };

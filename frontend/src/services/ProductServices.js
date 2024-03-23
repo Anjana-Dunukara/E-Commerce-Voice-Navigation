@@ -1,71 +1,96 @@
 import axios from 'axios';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 export const getAllProducts = async () => {
-  const { data } = await axios.get(
-    `${process.env.REACT_APP_API_BASE_URL}/products`
-  );
-  return data;
+  try {
+    const { data } = await axios.get(`${API_BASE_URL}/products`);
+    return data;
+  } catch (error) {
+    throw new Error(`Error fetching all products: ${error.message}`);
+  }
 };
 
 export const getProductById = async (id) => {
-  const { data } = await axios.get(
-    `${process.env.REACT_APP_API_BASE_URL}/products/${id}`
-  );
-  return data;
+  try {
+    const { data } = await axios.get(`${API_BASE_URL}/products/${id}`);
+    return data;
+  } catch (error) {
+    throw new Error(`Error fetching product by ID: ${error.message}`);
+  }
 };
 
 export const getProductByPrice = async (lowest, uppest) => {
-  const { data } = await axios.post(
-    `${process.env.REACT_APP_API_BASE_URL}/products/query/price`,
-    {
+  try {
+    const { data } = await axios.post(`${API_BASE_URL}/products/query/price`, {
       lowest,
       uppest,
-    }
-  );
-  return data;
+    });
+    return data;
+  } catch (error) {
+    throw new Error(`Error fetching products by price: ${error.message}`);
+  }
 };
 
 export const getProductByCategoryId = async (id) => {
-  const { data } = await axios.get(
-    `${process.env.REACT_APP_API_BASE_URL}/products/category/${id}`
-  );
-  return data;
+  try {
+    const { data } = await axios.get(`${API_BASE_URL}/products/category/${id}`);
+    return data;
+  } catch (error) {
+    throw new Error(`Error fetching products by category ID: ${error.message}`);
+  }
 };
 
 export const getProductByColor = async (color, lowest, uppest) => {
-  const { data } = await axios.post(
-    `${process.env.REACT_APP_API_BASE_URL}/products/color/${color}`,
-    {
-      lowest,
-      uppest,
-    }
-  );
-  return data;
+  try {
+    const { data } = await axios.post(
+      `${API_BASE_URL}/products/color/${color}`,
+      {
+        lowest,
+        uppest,
+      }
+    );
+    return data;
+  } catch (error) {
+    throw new Error(`Error fetching products by color: ${error.message}`);
+  }
 };
 
 export const getProductByCondition = async (condition, lowest, uppest) => {
-  const { data } = await axios.post(
-    `${process.env.REACT_APP_API_BASE_URL}/products/condition/${condition}`,
-    {
-      lowest,
-      uppest,
-    }
-  );
-  return data;
+  try {
+    const { data } = await axios.post(
+      `${API_BASE_URL}/products/condition/${condition}`,
+      {
+        lowest,
+        uppest,
+      }
+    );
+    return data;
+  } catch (error) {
+    throw new Error(`Error fetching products by condition: ${error.message}`);
+  }
 };
 
 export const getProductByStatus = async (status) => {
-  const { data } = await axios.get(
-    `${process.env.REACT_APP_API_BASE_URL}/products/status/${status}`
-  );
-  return data;
+  try {
+    const { data } = await axios.get(
+      `${API_BASE_URL}/products/status/${status}`
+    );
+    return data;
+  } catch (error) {
+    throw new Error(`Error fetching products by status: ${error.message}`);
+  }
 };
 
 export const getProductBySearch = async (search) => {
-  const { data } = await axios.get(
-    `${process.env.REACT_APP_API_BASE_URL}/products/search/${search}`
-  );
-  return data;
+  try {
+    const { data } = await axios.get(
+      `${API_BASE_URL}/products/search/${search}`
+    );
+    return data;
+  } catch (error) {
+    throw new Error(`Error fetching products by search: ${error.message}`);
+  }
 };
 
 export const getProductsByQueries = async (
@@ -74,16 +99,17 @@ export const getProductsByQueries = async (
   condition,
   color
 ) => {
-  const { data } = await axios.post(
-    `${process.env.REACT_APP_API_BASE_URL}/products/query/full`,
-    {
+  try {
+    const { data } = await axios.post(`${API_BASE_URL}/products/query/full`, {
       lowest,
       uppest,
       condition,
       color,
-    }
-  );
-  return data;
+    });
+    return data;
+  } catch (error) {
+    throw new Error(`Error fetching products by queries: ${error.message}`);
+  }
 };
 
 export const addProduct = async (
@@ -96,9 +122,8 @@ export const addProduct = async (
   condition,
   price
 ) => {
-  const { data } = await axios.post(
-    `${process.env.REACT_APP_API_BASE_URL}/products`,
-    {
+  try {
+    const { data } = await axios.post(`${API_BASE_URL}/products`, {
       imageUrl,
       name,
       color,
@@ -107,26 +132,31 @@ export const addProduct = async (
       category,
       condition,
       price,
-    }
-  );
-  return data;
+    });
+    return data;
+  } catch (error) {
+    throw new Error(`Error adding product: ${error.message}`);
+  }
 };
 
 export const updateProduct = async (id, name, description, price) => {
-  const { data } = await axios.put(
-    `${process.env.REACT_APP_API_BASE_URL}/products/${id}`,
-    {
+  try {
+    const { data } = await axios.put(`${API_BASE_URL}/products/${id}`, {
       name,
       description,
       price,
-    }
-  );
-  return data;
+    });
+    return data;
+  } catch (error) {
+    throw new Error(`Error updating product: ${error.message}`);
+  }
 };
 
 export const deleteProduct = async (id) => {
-  const { data } = await axios.delete(
-    `${process.env.REACT_APP_API_BASE_URL}/products/${id}`
-  );
-  return data;
+  try {
+    const { data } = await axios.delete(`${API_BASE_URL}/products/${id}`);
+    return data;
+  } catch (error) {
+    throw new Error(`Error deleting product: ${error.message}`);
+  }
 };

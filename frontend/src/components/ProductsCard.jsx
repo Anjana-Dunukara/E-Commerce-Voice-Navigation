@@ -33,19 +33,18 @@ const ProductsCard = ({ productId, isDelivered }) => {
   const [amount, setAmount] = useState(0);
 
   useEffect(() => {
-    if (productId) {
+    if (productId && cart) {
       setIsFavorite(status);
       getProductById(productId).then((result) => {
         setProduct(result.product);
       });
-      cart.forEach((item) => {
-        if (item.id === productId) {
-          setInCart(true);
-          setAmount(item.amount);
-        }
-      });
+      const foundItem = cart.find((item) => item.id === productId);
+      if (foundItem) {
+        setInCart(true);
+        setAmount(foundItem.amount);
+      }
     }
-  }, [productId, status, cart, amount]);
+  }, [productId, status, cart]);
 
   const onClickFavorite = () => {
     if (!isFavorite) {

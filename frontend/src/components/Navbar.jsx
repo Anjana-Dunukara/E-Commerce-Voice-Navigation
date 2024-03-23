@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import {
@@ -45,6 +45,26 @@ const Navbar = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['currentUser']);
   const [admin] = useGetUserRole(currentUser);
 
+  const menuRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(event.target) &&
+      event.target !== buttonRef.current
+    ) {
+      setOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
+
   useEffect(() => {
     getAllGenres().then((result) => {
       setGenres(result.allGenres);
@@ -63,6 +83,10 @@ const Navbar = () => {
   const Logout = () => {
     removeCookie('currentUser', { path: '/' });
     setCurrentUser('');
+  };
+
+  const toggleMenu = () => {
+    setOpen(!open);
   };
 
   return (
@@ -108,9 +132,12 @@ const Navbar = () => {
             alignItems="center"
             transition={0.5}
             _hover={{ color: 'facebook.700' }}
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
-            onClick={() => !currentUser && navigate('/login')}
+            onClick={() => {
+              toggleMenu();
+              if (!currentUser) {
+                navigate('/login');
+              }
+            }}
           >
             {currentUser && !admin && (
               <Menu isOpen={open}>

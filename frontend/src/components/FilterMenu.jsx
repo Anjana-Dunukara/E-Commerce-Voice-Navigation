@@ -167,7 +167,7 @@ const FilterMenu = ({ openFilter, setProducts, setSortBy }) => {
         </Checkbox>
         <Divider my={3} />
       </Box>
-      <Box display="flex" flexDirection="column" pb={3}>
+      {/* <Box display="flex" flexDirection="column" pb={3}>
         <Text fontSize={20} mb={3} fontWeight={500}>
           Color
         </Text>
@@ -200,7 +200,7 @@ const FilterMenu = ({ openFilter, setProducts, setSortBy }) => {
         <Button mt={5} colorScheme="facebook" onClick={onClickSearch}>
           Search
         </Button>
-      </Box>
+      </Box> */}
     </Box>
   );
 };

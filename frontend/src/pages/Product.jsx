@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { useLocation } from 'react-router-dom';
 import {
   Box,
   Image,
@@ -11,22 +11,22 @@ import {
   IconButton,
   useDisclosure,
   useToast,
-} from "@chakra-ui/react";
-import { Favorite, FavoriteBorder, Info } from "@mui/icons-material";
-import StarRatings from "react-star-ratings";
+} from '@chakra-ui/react';
+import { Favorite, FavoriteBorder, Info } from '@mui/icons-material';
+import StarRatings from 'react-star-ratings';
 
-import Comment from "../components/Comment";
-import ReviewModal from "../components/ReviewModal";
-import { useCartContext } from "../contexts/CartContext";
-import { useUserContext } from "../contexts/UserContext";
-import useGetFavoriteStatus from "../hooks/useGetFavoriteStatus";
-import { getProductById } from "../services/ProductServices";
-import { addFavorite, deleteFavorite } from "../services/UserServices";
-import { getCommentByProductId } from "../services/CommentServices";
-import { getRatingByProductId } from "../services/RatingServices";
-import useGetUserHaveThis from "../hooks/useGetUserHaveThis";
-import { getOrdersByUserId } from "../services/OrderServices";
-import Voice from "../components/Voice";
+import Comment from '../components/Comment';
+import ReviewModal from '../components/ReviewModal';
+import { useCartContext } from '../contexts/CartContext';
+import { useUserContext } from '../contexts/UserContext';
+import useGetFavoriteStatus from '../hooks/useGetFavoriteStatus';
+import { getProductById } from '../services/ProductServices';
+import { addFavorite, deleteFavorite } from '../services/UserServices';
+import { getCommentByProductId } from '../services/CommentServices';
+import { getRatingByProductId } from '../services/RatingServices';
+import useGetUserHaveThis from '../hooks/useGetUserHaveThis';
+import { getOrdersByUserId } from '../services/OrderServices';
+import Voice from '../components/Voice';
 
 const Product = () => {
   const toast = useToast();
@@ -39,17 +39,17 @@ const Product = () => {
   const [ratings, setRatings] = useState(0);
   const [ratingCount, setRatingCount] = useState(0);
   const [comments, setComments] = useState([]);
-  const [product, setProduct] = useState("");
+  const [product, setProduct] = useState('');
   const [shipingLocations, setShipingLocations] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState('');
   const [inCart, setInCart] = useState(false);
   const [amount, setAmount] = useState(0);
-  const [setCookie, removeCookie] = useCookies(["cart"]);
+  const [cookies, setCookie, removeCookie] = useCookies(['cart']);
   const [have] = useGetUserHaveThis(currentUser, location.state.productId);
 
   useEffect(() => {
     setIsFavorite(status);
-    setSelectedLocation("Sri Lanka");
+    setSelectedLocation('Sri Lanka');
 
     getProductById(location.state.productId).then((result) => {
       setProduct(result.product);
@@ -88,7 +88,7 @@ const Product = () => {
   };
 
   const onClickAddCart = () => {
-    if (selectedLocation !== "") {
+    if (selectedLocation !== '') {
       const currentIndex = cart.findIndex(
         (item) => item.id === location.state.productId
       );
@@ -101,7 +101,7 @@ const Product = () => {
           return updatedCart;
         });
         setAmount(amount + 1);
-        setCookie("cart", cart, { path: "/" });
+        setCookie('cart', cart, { path: '/' });
       } else {
         setCart((prevCart) => [
           ...prevCart,
@@ -111,14 +111,14 @@ const Product = () => {
             price: product.price,
           },
         ]);
-        setCookie("cart", cart, { path: "/" });
+        setCookie('cart', cart, { path: '/' });
       }
       setRefresh(!refresh);
     } else {
       toast({
-        title: "Error!",
-        description: "You must choose a shipping location.",
-        status: "error",
+        title: 'Error!',
+        description: 'You must choose a shipping location.',
+        status: 'error',
         duration: 2000,
         isClosable: true,
       });
@@ -142,19 +142,19 @@ const Product = () => {
         return updatedCart;
       });
       setAmount(amount - 1);
-      setCookie("cart", cart, { path: "/" });
+      removeCookie('cart');
+      setRefresh(!refresh);
     }
-    setRefresh(!refresh);
   };
 
   const onClickWrite = () => {
     if (have) {
-      onOpen(true);
+      onOpen();
     } else {
       toast({
-        title: "Error!",
-        description: "You must have this to write a review.",
-        status: "error",
+        title: 'Error!',
+        description: 'You must have this to write a review.',
+        status: 'error',
         duration: 2000,
         isClosable: true,
       });
@@ -174,15 +174,15 @@ const Product = () => {
               <Text fontSize={30}>{product.name}</Text>
               <Box display="flex" alignItems="center" mt={2}>
                 <StarRatings
-                  starDimension={"20"}
-                  starSpacing={"2"}
+                  starDimension={'20'}
+                  starSpacing={'2'}
                   rating={ratings}
                   starRatedColor="#FFD700"
                   numberOfStars={5}
                   name="rating"
                 />
                 <Text fontSize={16} fontWeight={500}>
-                  {" "}
+                  {' '}
                   | {ratingCount} reviews
                 </Text>
               </Box>
@@ -193,7 +193,7 @@ const Product = () => {
                 fontWeight={400}
                 color="facebook.500"
               >
-                Price : <b> {product.price}$ </b>{" "}
+                Price : <b> {product.price}$ </b>{' '}
               </Text>
               <Divider />
               {/* <Text mt={3} fontSize={20} fontWeight={500}>
@@ -229,13 +229,13 @@ const Product = () => {
                 mt={10}
                 mb={5}
                 display="flex"
-                flexDirection={{ base: "column", sm: "row" }}
+                flexDirection={{ base: 'column', sm: 'row' }}
               >
                 {inCart ? (
                   <Box
                     display="flex"
                     alignItems="center"
-                    width={{ base: "100%", sm: "40%" }}
+                    width={{ base: '100%', sm: '40%' }}
                   >
                     <Button
                       onClick={onClickRemoveCart}
@@ -247,7 +247,7 @@ const Product = () => {
                     <Text
                       fontSize={25}
                       px={2}
-                      width={{ base: "100%", sm: "60%" }}
+                      width={{ base: '100%', sm: '60%' }}
                       textAlign="center"
                     >
                       {amount}
@@ -279,17 +279,17 @@ const Product = () => {
                   height={10}
                   width="50px"
                   textAlign="center"
-                  display={{ base: "none", sm: "block" }}
+                  display={{ base: 'none', sm: 'block' }}
                 />
                 <Button
                   my={1}
                   colorScheme="facebook"
                   variant="outline"
-                  display={{ base: "block", sm: "none" }}
+                  display={{ base: 'block', sm: 'none' }}
                   height={10}
                   width="100%"
                 >
-                  {" "}
+                  {' '}
                   ADD TO FAVORITE
                 </Button>
               </Box>
@@ -310,7 +310,7 @@ const Product = () => {
             width="100%"
             display="flex"
             justifyContent="space-between"
-            flexDirection={{ base: "column", md: "row" }}
+            flexDirection={{ base: 'column', md: 'row' }}
             alignItems="center"
             backgroundColor="whitesmoke"
             borderRadius="4px"
@@ -321,21 +321,21 @@ const Product = () => {
             <Box>
               <Box display="flex">
                 <StarRatings
-                  starDimension={"20"}
-                  starSpacing={"2"}
+                  starDimension={'20'}
+                  starSpacing={'2'}
                   rating={ratings}
                   starRatedColor="#FFD700"
                   numberOfStars={5}
                   name="rating"
                 />
                 <Text fontSize={16} fontWeight={500}>
-                  {" "}
+                  {' '}
                   | {ratingCount} reviews
                 </Text>
               </Box>
               <Text my={3} display="flex" alignItems="center">
-                <Info sx={{ fontSize: "16px", mr: 1 }} /> You must have
-                purchased the product for write a review.{" "}
+                <Info sx={{ fontSize: '16px', mr: 1 }} /> You must have
+                purchased the product for write a review.{' '}
               </Text>
             </Box>
             <Button
@@ -365,6 +365,7 @@ const Product = () => {
         onClose={onClose}
         productId={location.state.productId}
       />
+      <Voice />
     </>
   );
 };

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import {
   Box,
   Image,
@@ -8,26 +8,28 @@ import {
   Icon,
   Button,
   useDisclosure,
-} from "@chakra-ui/react";
-import { Favorite, RateReview, ShoppingCart } from "@mui/icons-material";
+  useToast,
+} from '@chakra-ui/react';
+import { Favorite, RateReview, ShoppingCart } from '@mui/icons-material';
 
-import { useCartContext } from "../contexts/CartContext";
-import { useUserContext } from "../contexts/UserContext";
-import { getProductById } from "../services/ProductServices";
-import { addFavorite, deleteFavorite } from "../services/UserServices";
-import useGetFavoriteStatus from "../hooks/useGetFavoriteStatus";
-import ReviewModal from "./ReviewModal";
+import { useCartContext } from '../contexts/CartContext';
+import { useUserContext } from '../contexts/UserContext';
+import { getProductById } from '../services/ProductServices';
+import { addFavorite, deleteFavorite } from '../services/UserServices';
+import useGetFavoriteStatus from '../hooks/useGetFavoriteStatus';
+import ReviewModal from './ReviewModal';
 
 const ProductsCard = ({ productId, isDelivered }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [cookies, setCookie, removeCookie] = useCookies(["cart"]);
+  const [cookies, setCookie, removeCookie] = useCookies(['cart']);
   const { cart, setCart, refresh, setRefresh } = useCartContext();
   // const [cart, setCart] = useState([]);
   const { currentUser } = useUserContext();
   const [status] = useGetFavoriteStatus(currentUser, productId);
   const navigate = useNavigate();
+  const toast = useToast();
 
-  const [product, setProduct] = useState("");
+  const [product, setProduct] = useState('');
   const [isFavorite, setIsFavorite] = useState(false);
   const [inCart, setInCart] = useState(false);
   const [amount, setAmount] = useState(0);
@@ -48,11 +50,22 @@ const ProductsCard = ({ productId, isDelivered }) => {
 
   const onClickFavorite = () => {
     if (!isFavorite) {
-      addFavorite(currentUser, productId);
-      setIsFavorite(true);
+      addFavorite(currentUser, productId)
+        .then(() => setIsFavorite(true))
+        .catch((error) => {
+          console.log(error);
+          toast({
+            title: 'Error Add Favorites',
+            description: 'You must be logged in',
+            status: 'error',
+            duration: 2000,
+            isClosable: true,
+          });
+        });
     } else {
-      deleteFavorite(currentUser, productId);
-      setIsFavorite(false);
+      deleteFavorite(currentUser, productId)
+        .then(() => setIsFavorite(false))
+        .catch((error) => console.log('Error deleting favorite:', error));
     }
   };
 
@@ -62,7 +75,7 @@ const ProductsCard = ({ productId, isDelivered }) => {
       cart[currentIndex].amount += 1;
       cart[currentIndex].price = product.price * cart[currentIndex].amount;
       setAmount(amount + 1);
-      setCookie("cart", cart, { path: "/" });
+      setCookie('cart', cart, { path: '/' });
     } else {
       setCart([
         ...cart,
@@ -72,7 +85,7 @@ const ProductsCard = ({ productId, isDelivered }) => {
           price: product.price,
         },
       ]);
-      setCookie("cart", cart, { path: "/" });
+      setCookie('cart', cart, { path: '/' });
     }
     setRefresh(!refresh);
   };
@@ -86,9 +99,9 @@ const ProductsCard = ({ productId, isDelivered }) => {
           index !== currentIndex && newCart.push(item);
         });
         if (cart.length === 1) {
-          removeCookie("cart", { path: "/" });
+          removeCookie('cart', { path: '/' });
         } else {
-          setCookie("cart", newCart, { path: "/" });
+          setCookie('cart', newCart, { path: '/' });
         }
         setInCart(false);
         setCart(newCart);
@@ -98,7 +111,7 @@ const ProductsCard = ({ productId, isDelivered }) => {
           cart[currentIndex].price / cart[currentIndex].amount;
         cart[currentIndex].amount -= 1;
         setAmount(amount - 1);
-        setCookie("cart", cart, { path: "/" });
+        setCookie('cart', cart, { path: '/' });
       }
     }
     setRefresh(!refresh);
@@ -205,8 +218,8 @@ const ProductsCard = ({ productId, isDelivered }) => {
                     as={Favorite}
                     fontSize={36}
                     transition={0.5}
-                    color={!isFavorite ? "blackAlpha.400" : "facebook.500"}
-                    _hover={{ color: "facebook.500" }}
+                    color={!isFavorite ? 'blackAlpha.400' : 'facebook.500'}
+                    _hover={{ color: 'facebook.500' }}
                   />
                   <Icon
                     onClick={onClickAddCart}
@@ -214,7 +227,7 @@ const ProductsCard = ({ productId, isDelivered }) => {
                     fontSize={36}
                     transition={0.5}
                     color="blackAlpha.400"
-                    _hover={{ color: "facebook.500" }}
+                    _hover={{ color: 'facebook.500' }}
                     ms={{ base: 2, md: 5 }}
                   />
                 </>
@@ -226,7 +239,7 @@ const ProductsCard = ({ productId, isDelivered }) => {
                   fontSize={36}
                   transition={0.5}
                   color="blackAlpha.400"
-                  _hover={{ color: "facebook.500" }}
+                  _hover={{ color: 'facebook.500' }}
                   ms={{ base: 2, md: 5 }}
                 />
               )}

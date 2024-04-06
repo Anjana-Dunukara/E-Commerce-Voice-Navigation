@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import {
   Box,
   Text,
@@ -11,7 +11,7 @@ import {
   MenuButton,
   MenuGroup,
   Divider,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import {
   Person,
   Favorite,
@@ -24,16 +24,16 @@ import {
   Group,
   Edit,
   Reviews,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 
-import { getAllGenres } from "../services/GenreServices";
-import { useUserContext } from "../contexts/UserContext";
-import { useCartContext } from "../contexts/CartContext";
-import Hamburger from "./Hamburger";
-import Dropdown from "./Dropdown";
-import Searchbar from "./Searchbar";
-import useGetUserRole from "../hooks/useGetUserRole";
-import Wecart from "../assets/wecart.png";
+import { getAllGenres } from '../services/GenreServices';
+import { useUserContext } from '../contexts/UserContext';
+import { useCartContext } from '../contexts/CartContext';
+import Hamburger from './Hamburger';
+import Dropdown from './Dropdown';
+import Searchbar from './Searchbar';
+import useGetUserRole from '../hooks/useGetUserRole';
+import Wecart from '../assets/wecart.png';
 
 const Navbar = () => {
   const [genres, setGenres] = useState([]);
@@ -42,7 +42,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useUserContext();
   const { setCart, cart, refresh, setRefresh } = useCartContext();
-  const [cookies, removeCookie] = useCookies(["currentUser", "cart"]);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    'currentUser',
+    'cart',
+  ]);
   const [admin] = useGetUserRole(currentUser);
 
   const menuRef = useRef(null);
@@ -59,13 +62,16 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener('mousedown', handleOutsideClick);
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, []);
 
   useEffect(() => {
+    if (!currentUser) {
+      navigate('/login');
+    }
     getAllGenres().then((result) => {
       setGenres(result.allGenres);
     });
@@ -78,14 +84,22 @@ const Navbar = () => {
       });
     }
     setItemCount(count);
-  }, [refresh, cart, cookies.cart, admin]);
+  }, [refresh, cart, cookies.cart, admin, currentUser]);
 
   const Logout = () => {
-    removeCookie("currentUser", { path: "/" });
-    removeCookie("cart", { path: "/" });
-    setCurrentUser("");
+    removeCookie('currentUser', { path: '/' });
+    removeCookie('cart', { path: '/' });
+    setCurrentUser('');
     setCart([]);
     setRefresh(!refresh);
+  };
+
+  const handleFavorites = () => {
+    if (currentUser) {
+      navigate('/favorites');
+    } else {
+      navigate('/login');
+    }
   };
 
   const toggleMenu = () => {
@@ -103,8 +117,8 @@ const Navbar = () => {
       zIndex={500}
     >
       <Box
-        display={"flex"}
-        flexDirection={{ base: "column", sm: "row" }}
+        display={'flex'}
+        flexDirection={{ base: 'column', sm: 'row' }}
         justifyContent="space-between"
         py={{ base: 1, md: 2 }}
         px={{ base: 2, md: 5 }}
@@ -113,12 +127,12 @@ const Navbar = () => {
         <Box
           display="flex"
           alignItems="center"
-          justifyContent={{ base: "space-between", sm: "start" }}
+          justifyContent={{ base: 'space-between', sm: 'start' }}
         >
           <Box className="navbar-logo">
             <img
               src={Wecart}
-              onClick={() => navigate("/")}
+              onClick={() => navigate('/')}
               alt="wecart"
               className="logo-image"
             />
@@ -126,7 +140,7 @@ const Navbar = () => {
           <Hamburger base="flex" sm="none" md="none" />
         </Box>
         <Searchbar />
-        <Box display={{ base: "none", md: "flex" }} alignItems="center" px={2}>
+        <Box display={{ base: 'none', md: 'flex' }} alignItems="center" px={2}>
           <Box
             color="facebook.500"
             display="flex"
@@ -134,11 +148,11 @@ const Navbar = () => {
             cursor="pointer"
             alignItems="center"
             transition={0.5}
-            _hover={{ color: "facebook.700" }}
+            _hover={{ color: 'facebook.700' }}
             onClick={() => {
               toggleMenu();
               if (!currentUser) {
-                navigate("/login");
+                navigate('/login');
               }
             }}
           >
@@ -151,13 +165,13 @@ const Navbar = () => {
                 <MenuButton />
                 <MenuList>
                   <MenuGroup title="Account">
-                    <MenuItem onClick={() => navigate("/infos")}>
+                    <MenuItem onClick={() => navigate('/infos')}>
                       <Person sx={{ marginRight: 2 }} /> My Informations
                     </MenuItem>
-                    <MenuItem onClick={() => navigate("/orders")}>
+                    <MenuItem onClick={() => navigate('/orders')}>
                       <ShoppingBag sx={{ marginRight: 2 }} /> Orders
                     </MenuItem>
-                    <MenuItem onClick={() => navigate("/reviews")}>
+                    <MenuItem onClick={() => navigate('/reviews')}>
                       <Reviews sx={{ marginRight: 2 }} /> My Reviews
                     </MenuItem>
                   </MenuGroup>
@@ -185,27 +199,27 @@ const Navbar = () => {
                 <MenuButton />
                 <MenuList>
                   <MenuGroup title="Admin">
-                    <MenuItem onClick={() => navigate("/admin/products")}>
+                    <MenuItem onClick={() => navigate('/admin/products')}>
                       <Inventory sx={{ marginRight: 2 }} />
                       Products
                     </MenuItem>
-                    <MenuItem onClick={() => navigate("/admin/users")}>
+                    <MenuItem onClick={() => navigate('/admin/users')}>
                       <Group sx={{ marginRight: 2 }} />
                       Users
                     </MenuItem>
-                    <MenuItem onClick={() => navigate("/admin/categories")}>
+                    <MenuItem onClick={() => navigate('/admin/categories')}>
                       <Edit sx={{ marginRight: 2 }} />
                       Genres and Categories
                     </MenuItem>
-                    <MenuItem onClick={() => navigate("/admin/images")}>
+                    <MenuItem onClick={() => navigate('/admin/images')}>
                       <MapsHomeWork sx={{ marginRight: 2 }} />
                       Home Page Images
                     </MenuItem>
-                    <MenuItem onClick={() => navigate("/admin/reports")}>
+                    <MenuItem onClick={() => navigate('/admin/reports')}>
                       <Report sx={{ marginRight: 2 }} />
                       Reports
                     </MenuItem>
-                    <MenuItem onClick={() => navigate("/admin/orders")}>
+                    <MenuItem onClick={() => navigate('/admin/orders')}>
                       <ShoppingBag sx={{ marginRight: 2 }} />
                       Orders
                     </MenuItem>
@@ -226,8 +240,8 @@ const Navbar = () => {
             mx="5"
             alignItems="center"
             transition={0.5}
-            _hover={{ color: "facebook.700" }}
-            onClick={() => navigate("/favorites")}
+            _hover={{ color: 'facebook.700' }}
+            onClick={handleFavorites}
           >
             <Icon fontSize={30} color="inherit" as={Favorite} />
             <Text color="inherit" fontWeight={500}>
@@ -241,19 +255,19 @@ const Navbar = () => {
             cursor="pointer"
             alignItems="center"
             transition={0.5}
-            _hover={{ color: "facebook.700" }}
-            onClick={() => navigate("/cart")}
+            _hover={{ color: 'facebook.700' }}
+            onClick={() => navigate('/cart')}
           >
             <Icon fontSize={30} color="inherit" as={ShoppingCart} />
             <Text color="inherit" fontWeight={500}>
-              {itemCount > 0 ? `Cart (${itemCount})` : "Cart"}
+              {itemCount > 0 ? `Cart (${itemCount})` : 'Cart'}
             </Text>
           </Box>
         </Box>
         <Hamburger base="none" sm="flex" md="none" />
       </Box>
       <Box
-        display={{ base: "none", md: "flex" }}
+        display={{ base: 'none', md: 'flex' }}
         py={{ base: 1, md: 2 }}
         ps={5}
         width="100%"

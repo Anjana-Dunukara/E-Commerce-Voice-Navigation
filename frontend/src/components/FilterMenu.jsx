@@ -200,7 +200,8 @@ const FilterMenu = ({ openFilter, setProducts, setSortBy }) => {
         <Button mt={5} colorScheme="facebook" onClick={onClickSearch}>
           Search
         </Button>
-      </Box>
+      </Box>{" "}
+      */}
     </Box>
   );
 };

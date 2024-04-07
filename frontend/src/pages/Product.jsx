@@ -44,7 +44,7 @@ const Product = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [inCart, setInCart] = useState(false);
   const [amount, setAmount] = useState(0);
-  const [setCookie, removeCookie] = useCookies(["cart"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["cart"]);
   const [have] = useGetUserHaveThis(currentUser, location.state.productId);
 
   useEffect(() => {
@@ -144,12 +144,11 @@ const Product = () => {
       setAmount(amount - 1);
       setCookie("cart", cart, { path: "/" });
     }
-    setRefresh(!refresh);
   };
 
   const onClickWrite = () => {
     if (have) {
-      onOpen(true);
+      onOpen();
     } else {
       toast({
         title: "Error!",
@@ -365,6 +364,7 @@ const Product = () => {
         onClose={onClose}
         productId={location.state.productId}
       />
+      <Voice />
     </>
   );
 };

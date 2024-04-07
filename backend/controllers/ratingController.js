@@ -1,4 +1,4 @@
-const Rating = require("../models/Rating");
+const Rating = require('../models/Rating');
 
 exports.getAllRatings = async (req, res) => {
   try {
@@ -9,7 +9,7 @@ exports.getAllRatings = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -24,7 +24,7 @@ exports.getRatingById = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -39,7 +39,7 @@ exports.getRatingByOwnerId = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -54,7 +54,7 @@ exports.getRatingByProductId = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -63,15 +63,15 @@ exports.getRatingByProductId = async (req, res) => {
 exports.getUserData = async (req, res) => {
   try {
     const ratings = await Rating.find({ owner: req.params.id }).populate({
-      path: "for",
-      model: "Product",
-      select: "_id imageUrl name description",
+      path: 'for',
+      model: 'Product',
+      select: '_id imageUrl name description',
     });
 
     res.status(200).json({ ratings });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -86,7 +86,7 @@ exports.addRating = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -103,7 +103,7 @@ exports.updateRating = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -118,7 +118,7 @@ exports.deleteRating = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }

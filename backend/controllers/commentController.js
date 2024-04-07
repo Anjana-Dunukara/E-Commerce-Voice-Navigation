@@ -1,4 +1,4 @@
-const Comment = require("../models/Comment");
+const Comment = require('../models/Comment');
 
 exports.getAllComments = async (req, res) => {
   try {
@@ -9,7 +9,7 @@ exports.getAllComments = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -24,7 +24,7 @@ exports.getCommentById = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -39,7 +39,7 @@ exports.getCommentByAuthorId = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -54,7 +54,7 @@ exports.getCommentByProductId = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -72,7 +72,7 @@ exports.getCommentByAuthorProductId = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -87,7 +87,7 @@ exports.addComment = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -104,7 +104,7 @@ exports.updateComment = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }
@@ -119,7 +119,7 @@ exports.deleteComment = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: 'failed',
       error,
     });
   }

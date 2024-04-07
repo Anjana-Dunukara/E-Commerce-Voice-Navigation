@@ -29,7 +29,11 @@ export const getRatingByOwnerId = async (ownerId) => {
     );
     return data;
   } catch (error) {
-    throw new Error(`Error fetching rating by owner ID: ${error.message}`);
+    if (error.response && error.response.status === 404) {
+      throw new Error('No ratings found for the provided owner ID');
+    } else {
+      throw new Error('Error fetching ratings by owner');
+    }
   }
 };
 

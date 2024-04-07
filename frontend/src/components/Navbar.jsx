@@ -42,7 +42,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useUserContext();
   const { setCart, cart, refresh, setRefresh } = useCartContext();
-  const [cookies, removeCookie] = useCookies(["currentUser", "cart"]);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "currentUser",
+    "cart",
+  ]);
   const [admin] = useGetUserRole(currentUser);
 
   const menuRef = useRef(null);
@@ -66,6 +69,9 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
+    if (!currentUser) {
+      navigate("/login");
+    }
     getAllGenres().then((result) => {
       setGenres(result.allGenres);
     });
@@ -78,7 +84,7 @@ const Navbar = () => {
       });
     }
     setItemCount(count);
-  }, [refresh, cart, cookies.cart, admin]);
+  }, [refresh, cart, cookies.cart, admin, currentUser]);
 
   const Logout = () => {
     removeCookie("currentUser", { path: "/" });
@@ -86,6 +92,14 @@ const Navbar = () => {
     setCurrentUser("");
     setCart([]);
     setRefresh(!refresh);
+  };
+
+  const handleFavorites = () => {
+    if (currentUser) {
+      navigate("/favorites");
+    } else {
+      navigate("/login");
+    }
   };
 
   const toggleMenu = () => {
@@ -227,7 +241,7 @@ const Navbar = () => {
             alignItems="center"
             transition={0.5}
             _hover={{ color: "facebook.700" }}
-            onClick={() => navigate("/favorites")}
+            onClick={handleFavorites}
           >
             <Icon fontSize={30} color="inherit" as={Favorite} />
             <Text color="inherit" fontWeight={500}>

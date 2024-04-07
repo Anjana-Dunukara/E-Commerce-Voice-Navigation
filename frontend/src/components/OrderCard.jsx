@@ -122,7 +122,7 @@ const OrderCard = ({ orderId }) => {
               product !== null && (
                 <ProductsCard
                   key={index}
-                  productId={product}
+                  productId={product.id}
                   isDelivered={orderStatus === "Order has been delivered."}
                 />
               )

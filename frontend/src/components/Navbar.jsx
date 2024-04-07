@@ -42,10 +42,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useUserContext();
   const { setCart, cart, refresh, setRefresh } = useCartContext();
-  const [cookies, setCookie, removeCookie] = useCookies([
-    "currentUser",
-    "cart",
-  ]);
+  const [cookies, removeCookie] = useCookies(["currentUser", "cart"]);
   const [admin] = useGetUserRole(currentUser);
 
   const menuRef = useRef(null);

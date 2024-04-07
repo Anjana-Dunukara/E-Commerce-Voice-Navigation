@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
+import React, { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import {
   Button,
   Box,
@@ -8,17 +8,17 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-} from "@chakra-ui/react";
-import { addOrder } from "../services/OrderServices";
-import { useUserContext } from "../contexts/UserContext";
-import { useCartContext } from "../contexts/CartContext";
-import { useFormik } from "formik";
-import CheckoutDetailsValidation from "../validations/CheckoutValidations";
+} from '@chakra-ui/react';
+import { addOrder } from '../services/OrderServices';
+import { useUserContext } from '../contexts/UserContext';
+import { useCartContext } from '../contexts/CartContext';
+import { useFormik } from 'formik';
+import CheckoutDetailsValidation from '../validations/CheckoutValidations';
 
 const CheckoutForm = ({ address }) => {
   const { currentUser } = useUserContext();
   const { cart, setCart } = useCartContext();
-  const [removeCookie] = useCookies(["cart"]);
+  const [cookies, setCookie, removeCookie] = useCookies(['cart']);
   const toast = useToast();
   const [products, setProducts] = useState([]);
 
@@ -42,30 +42,30 @@ const CheckoutForm = ({ address }) => {
     resetForm,
   } = useFormik({
     initialValues: {
-      cardNumber: "",
-      expiry: "",
-      cvc: "",
+      cardNumber: '',
+      expiry: '',
+      cvc: '',
     },
     onSubmit: async (values) => {
       try {
         await addOrder(products, currentUser, address);
         setTimeout(() => {
           toast({
-            title: "Successful!",
-            description: "Thank you for purchasing from V-cart.",
-            status: "success",
+            title: 'Successful!',
+            description: 'Thank you for purchasing from V-cart.',
+            status: 'success',
             duration: 3000,
             isClosable: true,
           });
           setCart([]);
-          removeCookie("cart", { path: "/" });
+          removeCookie('cart', { path: '/' });
           resetForm();
         }, 2000);
       } catch (error) {
         toast({
-          title: "An error occurred",
-          description: "An error occurred while processing the order.",
-          status: "error",
+          title: 'An error occurred',
+          description: 'An error occurred while processing the order.',
+          status: 'error',
           duration: 3000,
           isClosable: true,
         });
@@ -82,10 +82,10 @@ const CheckoutForm = ({ address }) => {
       width="100vw"
       mt={5}
     >
-      <Box width={{ base: "100vw", sm: "500px" }} p={2}>
+      <Box width={{ base: '100vw', sm: '500px' }} p={2}>
         <Text
           textAlign="center"
-          color={"facebook.500"}
+          color={'facebook.500'}
           fontSize={32}
           fontWeight={600}
           mb={10}

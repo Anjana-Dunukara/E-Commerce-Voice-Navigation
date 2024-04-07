@@ -3,16 +3,28 @@ import { useEffect, useState } from 'react';
 import { getUserById } from '../services/UserServices';
 
 const useGetNameById = (id) => {
-    const [name, setName] = useState("");
+  const [name, setName] = useState('');
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        getUserById(id)
-            .then((result) => {
-                setName(result.user.firstName + " " + result.user.lastName);
-            });
-    }, [id]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getUserById(id);
+        if (result && result.user) {
+          setName(result.user.firstName + ' ' + result.user.lastName);
+        } else {
+          setError('User not found');
+        }
+      } catch (error) {
+        setError(`Error fetching user: ${error.message}`);
+      }
+    };
+    if (id) {
+      fetchData();
+    }
+  }, [id]);
 
-    return [name];
-}
+  return [name, error];
+};
 
 export default useGetNameById;

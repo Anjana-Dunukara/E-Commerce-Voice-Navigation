@@ -18,7 +18,7 @@ import CheckoutDetailsValidation from "../validations/CheckoutValidations";
 const CheckoutForm = ({ address }) => {
   const { currentUser } = useUserContext();
   const { cart, setCart } = useCartContext();
-  const [cookies, removeCookie] = useCookies(["cart"]);
+  const [removeCookie] = useCookies(["cart"]);
   const toast = useToast();
   const [products, setProducts] = useState([]);
 
@@ -28,7 +28,7 @@ const CheckoutForm = ({ address }) => {
       productArray.push(product);
     });
     setProducts(productArray);
-  }, [cart, cookies]);
+  }, [cart]);
 
   const {
     values,

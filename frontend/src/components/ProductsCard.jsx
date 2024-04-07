@@ -8,6 +8,7 @@ import {
   Icon,
   Button,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import { Favorite, RateReview, ShoppingCart } from '@mui/icons-material';
 
@@ -20,12 +21,13 @@ import ReviewModal from './ReviewModal';
 
 const ProductsCard = ({ productId, isDelivered }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [cookies, setCookies, removeCookie] = useCookies(['cart']);
+  const [cookies, setCookie, removeCookie] = useCookies(['cart']);
   const { cart, setCart, refresh, setRefresh } = useCartContext();
   // const [cart, setCart] = useState([]);
   const { currentUser } = useUserContext();
   const [status] = useGetFavoriteStatus(currentUser, productId);
   const navigate = useNavigate();
+  const toast = useToast();
 
   const [product, setProduct] = useState('');
   const [isFavorite, setIsFavorite] = useState(false);
@@ -48,11 +50,22 @@ const ProductsCard = ({ productId, isDelivered }) => {
 
   const onClickFavorite = () => {
     if (!isFavorite) {
-      addFavorite(currentUser, productId);
-      setIsFavorite(true);
+      addFavorite(currentUser, productId)
+        .then(() => setIsFavorite(true))
+        .catch((error) => {
+          console.log(error);
+          toast({
+            title: 'Error Add Favorites',
+            description: 'You must be logged in',
+            status: 'error',
+            duration: 2000,
+            isClosable: true,
+          });
+        });
     } else {
-      deleteFavorite(currentUser, productId);
-      setIsFavorite(false);
+      deleteFavorite(currentUser, productId)
+        .then(() => setIsFavorite(false))
+        .catch((error) => console.log('Error deleting favorite:', error));
     }
   };
 
@@ -62,7 +75,7 @@ const ProductsCard = ({ productId, isDelivered }) => {
       cart[currentIndex].amount += 1;
       cart[currentIndex].price = product.price * cart[currentIndex].amount;
       setAmount(amount + 1);
-      setCookies('cart', cart, { path: '/' });
+      setCookie('cart', cart, { path: '/' });
     } else {
       setCart([
         ...cart,
@@ -72,7 +85,7 @@ const ProductsCard = ({ productId, isDelivered }) => {
           price: product.price,
         },
       ]);
-      setCookies('cart', cart, { path: '/' });
+      setCookie('cart', cart, { path: '/' });
     }
     setRefresh(!refresh);
   };
@@ -88,7 +101,7 @@ const ProductsCard = ({ productId, isDelivered }) => {
         if (cart.length === 1) {
           removeCookie('cart', { path: '/' });
         } else {
-          setCookies('cart', newCart, { path: '/' });
+          setCookie('cart', newCart, { path: '/' });
         }
         setInCart(false);
         setCart(newCart);
@@ -98,7 +111,7 @@ const ProductsCard = ({ productId, isDelivered }) => {
           cart[currentIndex].price / cart[currentIndex].amount;
         cart[currentIndex].amount -= 1;
         setAmount(amount - 1);
-        setCookies('cart', cart, { path: '/' });
+        setCookie('cart', cart, { path: '/' });
       }
     }
     setRefresh(!refresh);

@@ -15,19 +15,23 @@ const Orders = () => {
   const [isEmpty, setIsEmpty] = useState(true);
 
   useEffect(() => {
-    getOrdersByUserId(currentUser).then((result) => {
-      var orderArray = result.orders;
-      setOrders(
-        orderArray
-          .sort((a, b) => Number(a.orderDate) - Number(b.orderDate))
-          .reverse()
+    getOrdersByUserId(currentUser)
+      .then((result) => {
+        var orderArray = result.orders;
+        setOrders(
+          orderArray
+            .sort((a, b) => Number(a.orderDate) - Number(b.orderDate))
+            .reverse()
+        );
+        result.orders.forEach((order) => {
+          if (currentOrders === 'active' && order.status) {
+            setIsEmpty(false);
+          }
+        });
+      })
+      .catch((err) =>
+        console.log(`Error get orders by user in order page: ${err}`)
       );
-      result.orders.forEach((order) => {
-        if (currentOrders === 'active' && order.status) {
-          setIsEmpty(false);
-        }
-      });
-    });
     if (currentOrders === 'all') {
       setIsEmpty(false);
     }

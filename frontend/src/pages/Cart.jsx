@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import {
   Box,
   Text,
@@ -9,25 +9,28 @@ import {
   Button,
   SimpleGrid,
   useToast,
-} from "@chakra-ui/react";
-import { ShoppingCart } from "@mui/icons-material";
+} from '@chakra-ui/react';
+import { ShoppingCart } from '@mui/icons-material';
 
-import { getUserById } from "../services/UserServices";
-import { useUserContext } from "../contexts/UserContext";
-import { useCartContext } from "../contexts/CartContext";
-import ProductsCard from "../components/ProductsCard";
-import Voice from "../components/Voice";
+import { getUserById } from '../services/UserServices';
+import { useUserContext } from '../contexts/UserContext';
+import { useCartContext } from '../contexts/CartContext';
+import ProductsCard from '../components/ProductsCard';
+import Voice from '../components/Voice';
 
 const Cart = () => {
   const toast = useToast();
   const { currentUser } = useUserContext();
-  const [cookies, removeCookie] = useCookies(["cart"]);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    'cart',
+    'currentUser',
+  ]);
   const { cart, setCart, refresh } = useCartContext();
   // const [cart, setCart] = useState([]);
   const navigate = useNavigate();
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [userAddress, setUserAddress] = useState("");
+  const [userAddress, setUserAddress] = useState('');
 
   useEffect(() => {
     var price = 0;
@@ -42,33 +45,40 @@ const Cart = () => {
     setTotalAmount(amount);
 
     currentUser &&
-      getUserById(currentUser).then((result) => {
-        setUserAddress(result.user.address);
-      });
+      getUserById(currentUser)
+        .then((result) => {
+          setUserAddress(result.user.address);
+        })
+        .catch((err) => console.log(err));
+    console.log(
+      getUserById(currentUser)
+        .then((result) => console.log(result))
+        .catch((err) => console.log(err))
+    );
   }, [cart, cookies.cart, refresh, currentUser]);
 
   const onClickPurchase = () => {
     if (currentUser) {
       if (userAddress) {
-        navigate("/payment", {
+        navigate('/payment', {
           state: { price: totalPrice, address: userAddress },
         });
       } else {
-        navigate("/infos");
+        navigate('/infos');
         toast({
-          title: "Warning!",
-          description: "You must give your address information first.",
-          status: "warning",
+          title: 'Warning!',
+          description: 'You must give your address information first.',
+          status: 'warning',
           duration: 2000,
           isClosable: true,
         });
       }
     } else {
-      navigate("/login");
+      navigate('/login');
       toast({
-        title: "Warning!",
-        description: "You must login first.",
-        status: "warning",
+        title: 'Warning!',
+        description: 'You must login first.',
+        status: 'warning',
         duration: 2000,
         isClosable: true,
       });
@@ -77,12 +87,12 @@ const Cart = () => {
 
   const onClickRemove = () => {
     setCart([]);
-    removeCookie("cart", { path: "/" });
+    removeCookie('cart', { path: '/' });
   };
 
   if (cart.length >= 1 && totalAmount > 0) {
     return (
-      <Box display="flex" flexDirection={{ base: "column", md: "row" }}>
+      <Box display="flex" flexDirection={{ base: 'column', md: 'row' }}>
         <SimpleGrid
           width="100%"
           p={{ base: 3, md: 5 }}
@@ -100,11 +110,11 @@ const Cart = () => {
         </SimpleGrid>
         <Box
           my={5}
-          borderLeft={{ base: "none", md: "2px solid whitesmoke" }}
+          borderLeft={{ base: 'none', md: '2px solid whitesmoke' }}
           flexDirection="column"
           display="flex"
           bg="#fff"
-          width={{ base: "100%", md: "20%" }}
+          width={{ base: '100%', md: '20%' }}
           px={5}
         >
           {userAddress && (
@@ -113,7 +123,7 @@ const Cart = () => {
               flexDirection="column"
               display="flex"
               bg="#fff"
-              width={{ base: "100%" }}
+              width={{ base: '100%' }}
             >
               <Text fontSize={28} mt={3} fontWeight={600} color="facebook.500">
                 Address
@@ -171,7 +181,7 @@ const Cart = () => {
           px={10}
           mt={10}
           colorScheme="facebook"
-          onClick={() => navigate("/")}
+          onClick={() => navigate('/')}
         >
           Start Shopping
         </Button>

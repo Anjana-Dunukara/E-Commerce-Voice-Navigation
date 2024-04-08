@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Text,
@@ -10,23 +10,25 @@ import {
   Center,
   Button,
   useToast,
-} from "@chakra-ui/react";
-import { Phone } from "@mui/icons-material";
+} from '@chakra-ui/react';
+import { Phone } from '@mui/icons-material';
 
-import { useUserContext } from "../contexts/UserContext";
-import { getUserById, updateUser } from "../services/UserServices";
+import { useUserContext } from '../contexts/UserContext';
+import { getUserById, updateUser } from '../services/UserServices';
 
 const Infos = () => {
   const toast = useToast();
   const { currentUser } = useUserContext();
-  const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
 
   useEffect(() => {
-    getUserById(currentUser).then((result) => {
-      setAddress(result.user.address);
-      setPhone(result.user.phone);
-    });
+    getUserById(currentUser)
+      .then((result) => {
+        setAddress(result.user.address);
+        setPhone(result.user.phone);
+      })
+      .catch((err) => console.log(`Error get user by id to info page: ${err}`));
   }, [currentUser]);
 
   const onInputPhone = (e) => {
@@ -35,30 +37,41 @@ const Infos = () => {
 
   const onClickSave = () => {
     if (phone.length === 11) {
-      updateUser(currentUser, address, phone).then((result) => {
-        if (result.status) {
+      updateUser(currentUser, address, phone)
+        .then((result) => {
+          if (result.status) {
+            toast({
+              title: 'Error!',
+              description: 'Somethings went wrong.',
+              status: 'error',
+              duration: 2000,
+              isClosable: true,
+            });
+          } else {
+            toast({
+              title: 'Successful!',
+              description: 'Successfully saved.',
+              status: 'success',
+              duration: 2000,
+              isClosable: true,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(`Error update information : ${err}`);
           toast({
-            title: "Error!",
-            description: "Somethings went wrong.",
-            status: "error",
+            title: 'Error!',
+            description: 'Error Update information',
+            status: 'error',
             duration: 2000,
             isClosable: true,
           });
-        } else {
-          toast({
-            title: "Successful!",
-            description: "Successfully saved.",
-            status: "success",
-            duration: 2000,
-            isClosable: true,
-          });
-        }
-      });
+        });
     } else {
       toast({
-        title: "Error!",
-        description: "Please enter a valid phone number.",
-        status: "error",
+        title: 'Error!',
+        description: 'Please enter a valid phone number.',
+        status: 'error',
         duration: 2000,
         isClosable: true,
       });
@@ -80,7 +93,7 @@ const Infos = () => {
       >
         My Informations
       </Text>
-      <Box display="flex" flexDirection={{ base: "column", md: "row" }}>
+      <Box display="flex" flexDirection={{ base: 'column', md: 'row' }}>
         <Box
           width="100%"
           display="flex"
@@ -113,7 +126,7 @@ const Infos = () => {
           height={300}
           mt={5}
           mx={3}
-          display={{ base: "none", md: "block" }}
+          display={{ base: 'none', md: 'block' }}
         >
           <Divider orientation="vertical" />
         </Center>

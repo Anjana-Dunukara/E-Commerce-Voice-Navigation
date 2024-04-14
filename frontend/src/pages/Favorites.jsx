@@ -7,9 +7,11 @@ import { getUserById } from '../services/UserServices';
 import { useUserContext } from '../contexts/UserContext';
 import ProductsCard from '../components/ProductsCard';
 import Voice from '../components/Voice';
+import { useCookies } from 'react-cookie';
 
 const Favorites = () => {
-  const { currentUser } = useUserContext();
+  const { currentUser, setCurrentUser, refresh } = useUserContext();
+  const [cookies, setCookie, removeCookie] = useCookies(['currentUser']);
   const navigate = useNavigate();
   const [userFavorites, setUserFavorites] = useState([]);
 

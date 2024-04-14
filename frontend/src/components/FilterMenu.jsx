@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import {
   Box,
   Text,
@@ -11,28 +11,28 @@ import {
   RadioGroup,
   Radio,
   Checkbox,
-} from '@chakra-ui/react';
-import { useState } from 'react';
+} from "@chakra-ui/react";
+import { useState } from "react";
 
 import {
   getProductByColor,
   getProductByCondition,
   getProductByPrice,
   getProductsByQueries,
-} from '../services/ProductServices';
-import { useSearchContext } from '../contexts/SearchContext';
+} from "../services/ProductServices";
+import { useSearchContext } from "../contexts/SearchContext";
 
 const FilterMenu = ({ openFilter, setProducts, setSortBy }) => {
   const { canSearch, setCanSearch } = useSearchContext();
 
   const [minPrice, setMinPrice] = useState(30);
   const [maxPrice, setMaxPrice] = useState(250);
-  const [condition, setCondition] = useState('all');
-  const [color, setColor] = useState('all');
+  const [condition, setCondition] = useState("all");
+  const [color, setColor] = useState("all");
 
   useEffect(() => {
-    setColor('all');
-    setCondition('all');
+    setColor("all");
+    setCondition("all");
     setMinPrice(30);
     setMaxPrice(250);
   }, [canSearch]);
@@ -53,18 +53,18 @@ const FilterMenu = ({ openFilter, setProducts, setSortBy }) => {
   };
 
   const onClickSearch = () => {
-    setSortBy('recommended');
-    if (condition !== 'all' && color !== 'all') {
+    setSortBy("recommended");
+    if (condition !== "all" && color !== "all") {
       getProductsByQueries(minPrice, maxPrice, condition, color).then(
         (result) => {
           setProducts(result.products);
         }
       );
-    } else if (condition !== 'all' && color === 'all') {
+    } else if (condition !== "all" && color === "all") {
       getProductByCondition(condition, minPrice, maxPrice).then((result) => {
         setProducts(result.products);
       });
-    } else if (color !== 'all' && condition === 'all') {
+    } else if (color !== "all" && condition === "all") {
       getProductByColor(color, minPrice, maxPrice).then((result) => {
         setProducts(result.products);
       });
@@ -77,7 +77,7 @@ const FilterMenu = ({ openFilter, setProducts, setSortBy }) => {
 
   return (
     <Box
-      display={openFilter ? 'block' : 'none'}
+      display={openFilter ? "block" : "none"}
       minHeight={725}
       maxHeight={850}
       p={3}
@@ -127,7 +127,7 @@ const FilterMenu = ({ openFilter, setProducts, setSortBy }) => {
         <RadioGroup
           display="flex"
           justifyContent="space-between"
-          flexDirection={{ base: 'column', md: 'row' }}
+          flexDirection={{ base: "column", md: "row" }}
           onChange={setCondition}
           onClick={onChangeCondition}
           value={condition}
@@ -200,7 +200,8 @@ const FilterMenu = ({ openFilter, setProducts, setSortBy }) => {
         <Button mt={5} colorScheme="facebook" onClick={onClickSearch}>
           Search
         </Button>
-      </Box>
+      </Box>{" "}
+      */}
     </Box>
   );
 };

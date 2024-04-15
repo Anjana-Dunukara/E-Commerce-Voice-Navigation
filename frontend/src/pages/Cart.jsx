@@ -154,7 +154,7 @@ const Cart = () => {
             Remove All
           </Button>
         </Box>
-        <Voice />
+        <Voice totalAmount={totalAmount} totalPrice={totalPrice} />
       </Box>
     );
   } else {

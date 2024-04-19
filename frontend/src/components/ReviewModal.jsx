@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -11,33 +11,33 @@ import {
   Button,
   Textarea,
   useToast,
-} from "@chakra-ui/react";
-import StarRatings from "react-star-ratings";
+} from '@chakra-ui/react';
+import StarRatings from 'react-star-ratings';
 
 import {
   getRatingById,
   addRating,
   updateRating,
   deleteRating,
-} from "../services/RatingServices";
+} from '../services/RatingServices';
 import {
   getCommentById,
   addComment,
   updateComment,
   deleteComment,
-} from "../services/CommentServices";
-import { useUserContext } from "../contexts/UserContext";
-import useGetReviewId from "../hooks/useGetReviewId";
+} from '../services/CommentServices';
+import { useUserContext } from '../contexts/UserContext';
+import useGetReviewId from '../hooks/useGetReviewId';
 
 const ReviewModal = ({ onClose, isOpen, productId }) => {
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
   const { currentUser } = useUserContext();
   const toast = useToast();
   const [ratingId, commentId] = useGetReviewId(currentUser, productId);
 
   useEffect(() => {
-    if (ratingId !== "" && commentId) {
+    if (ratingId !== '' && commentId) {
       getRatingById(ratingId).then((result) => {
         setRating(result.rating.rating);
       });
@@ -51,9 +51,9 @@ const ReviewModal = ({ onClose, isOpen, productId }) => {
     addRating(productId, rating, currentUser).then((result) => {
       if (result.status) {
         toast({
-          title: "Error!",
-          description: "Somethings went wrong.",
-          status: "error",
+          title: 'Error!',
+          description: 'Somethings went wrong.',
+          status: 'error',
           duration: 2000,
           isClosable: true,
         });
@@ -61,17 +61,17 @@ const ReviewModal = ({ onClose, isOpen, productId }) => {
         addComment(productId, comment, currentUser).then((result) => {
           if (result.status) {
             toast({
-              title: "Error!",
-              description: "Somethings went wrong.",
-              status: "error",
+              title: 'Error!',
+              description: 'Somethings went wrong.',
+              status: 'error',
               duration: 2000,
               isClosable: true,
             });
           } else {
             toast({
-              title: "Success!",
-              description: "Your review has been sent successfully.",
-              status: "success",
+              title: 'Success!',
+              description: 'Your review has been sent successfully.',
+              status: 'success',
               duration: 2000,
               isClosable: true,
             });
@@ -86,9 +86,9 @@ const ReviewModal = ({ onClose, isOpen, productId }) => {
     updateRating(ratingId, productId, rating, currentUser).then((result) => {
       if (result.status) {
         toast({
-          title: "Error!",
-          description: "Somethings went wrong.",
-          status: "error",
+          title: 'Error!',
+          description: 'Somethings went wrong.',
+          status: 'error',
           duration: 2000,
           isClosable: true,
         });
@@ -97,17 +97,17 @@ const ReviewModal = ({ onClose, isOpen, productId }) => {
           (result) => {
             if (result.status) {
               toast({
-                title: "Error!",
-                description: "Somethings went wrong.",
-                status: "error",
+                title: 'Error!',
+                description: 'Somethings went wrong.',
+                status: 'error',
                 duration: 2000,
                 isClosable: true,
               });
             } else {
               toast({
-                title: "Success!",
-                description: "Your review has been updated successfully.",
-                status: "success",
+                title: 'Success!',
+                description: 'Your review has been updated successfully.',
+                status: 'success',
                 duration: 2000,
                 isClosable: true,
               });
@@ -123,9 +123,9 @@ const ReviewModal = ({ onClose, isOpen, productId }) => {
     deleteRating(ratingId).then((result) => {
       if (result.status) {
         toast({
-          title: "Error!",
-          description: "Somethings went wrong.",
-          status: "error",
+          title: 'Error!',
+          description: 'Somethings went wrong.',
+          status: 'error',
           duration: 2000,
           isClosable: true,
         });
@@ -133,17 +133,17 @@ const ReviewModal = ({ onClose, isOpen, productId }) => {
         deleteComment(commentId).then((result) => {
           if (result.status) {
             toast({
-              title: "Error!",
-              description: "Somethings went wrong.",
-              status: "error",
+              title: 'Error!',
+              description: 'Somethings went wrong.',
+              status: 'error',
               duration: 2000,
               isClosable: true,
             });
           } else {
             toast({
-              title: "Success!",
-              description: "Your review was deleted.",
-              status: "success",
+              title: 'Success!',
+              description: 'Your review was deleted.',
+              status: 'success',
               duration: 2000,
               isClosable: true,
             });
@@ -159,7 +159,7 @@ const ReviewModal = ({ onClose, isOpen, productId }) => {
       <ModalOverlay />
       <ModalContent>
         <ModalHeader fontSize={30} color="facebook.500">
-          {ratingId !== "" ? "Edit Review" : "Review"}
+          {ratingId !== '' ? 'Edit Review' : 'Review'}
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -173,8 +173,8 @@ const ReviewModal = ({ onClose, isOpen, productId }) => {
             Rating :
           </Text>
           <StarRatings
-            starDimension={"30"}
-            starSpacing={"2"}
+            starDimension={'30'}
+            starSpacing={'2'}
             rating={rating}
             changeRating={(val) => setRating(val)}
             isSelectable={true}
@@ -192,12 +192,12 @@ const ReviewModal = ({ onClose, isOpen, productId }) => {
             resize="none"
             placeholder="Please write your review."
             value={comment}
-            onInput={(e) => setComment(e.target.value)}
+            onChange={(e) => setComment(e.target.value)}
             height={200}
           ></Textarea>
         </ModalBody>
         <ModalFooter>
-          {ratingId !== "" ? (
+          {ratingId !== '' ? (
             <>
               <Button
                 mx={3}

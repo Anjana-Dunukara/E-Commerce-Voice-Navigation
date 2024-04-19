@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Table,
@@ -9,15 +9,16 @@ import {
   Th,
   TableContainer,
   CircularProgress,
-} from "@chakra-ui/react";
-import moment from "moment";
+} from '@chakra-ui/react';
+import moment from 'moment';
 
-import { getAllOrders, getOrdersByStatus } from "../services/OrderServices";
-import TableUserInfo from "../components/TableUserInfo";
-import TableProductInfo from "../components/TableProductInfo";
-import TableStatusInfo from "../components/TableStatusInfo";
+import { getAllOrders, getOrdersByStatus } from '../services/OrderServices';
+import TableUserInfo from '../components/TableUserInfo';
+import TableProductInfo from '../components/TableProductInfo';
+import TableStatusInfo from '../components/TableStatusInfo';
 
 const OrdersforAdmin = () => {
+  const notEdit = true;
   const [orders, setOrders] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [currentStatus, setCurrentStatus] = useState(false);
@@ -51,9 +52,9 @@ const OrdersforAdmin = () => {
                 <Th
                   onClick={() => setCurrentStatus(!currentStatus)}
                   cursor="pointer"
-                  _hover={{ textDecoration: "underline" }}
+                  _hover={{ textDecoration: 'underline' }}
                 >
-                  Status - {currentStatus ? "Active" : "All"}
+                  Status - {currentStatus ? 'Active' : 'All'}
                 </Th>
               </Tr>
             </Thead>
@@ -69,7 +70,7 @@ const OrdersforAdmin = () => {
                       refresh={refresh}
                       setRefresh={setRefresh}
                     />
-                    <Td>{moment(order.orderDate).format("DD.MM.YY")}</Td>
+                    <Td>{moment(order.orderDate).format('DD.MM.YY')}</Td>
                     <TableStatusInfo
                       prepare={order.prepare}
                       onWay={order.onWay}
@@ -78,6 +79,7 @@ const OrdersforAdmin = () => {
                       orderId={order._id}
                       refresh={refresh}
                       setRefresh={setRefresh}
+                      notEdit={notEdit}
                     />
                   </Tr>
                 );

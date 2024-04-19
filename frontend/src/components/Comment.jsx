@@ -3,14 +3,24 @@ import { Divider, Box, Text } from '@chakra-ui/react';
 import moment from 'moment';
 
 import useGetNameById from '../hooks/useGetNameById';
+import StarRatings from 'react-star-ratings';
+import { getRatingByOwnerId } from '../services/RatingServices';
 
 const Comment = ({ authorId, commentText, createdAt }) => {
   const [name] = useGetNameById(authorId);
   const [author, setAuthor] = useState('');
+  const [ratingsByAuthor, setRatingByAuthor] = useState(0);
 
   useEffect(() => {
+    console.log(authorId);
     setAuthor(name);
-  }, [name]);
+    getRatingByOwnerId(authorId)
+      .then((result) => {
+        setRatingByAuthor(result.ratings[0].rating || 0);
+      })
+      .catch((err) => console.log(err));
+    console.log(ratingsByAuthor);
+  }, [name, authorId]);
 
   return (
     <Box>
@@ -25,6 +35,14 @@ const Comment = ({ authorId, commentText, createdAt }) => {
         </Text>
       </Box>
       <Text mt={5} mb={{ base: 5, md: 10 }}>
+        <StarRatings
+          starDimension={'20'}
+          starSpacing={'2'}
+          rating={parseFloat(ratingsByAuthor)}
+          starRatedColor="#FFD700"
+          numberOfStars={5}
+          name="rating"
+        />
         {commentText}
       </Text>
       <Divider />

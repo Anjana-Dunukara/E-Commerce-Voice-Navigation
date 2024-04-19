@@ -11,6 +11,7 @@ import {
   IconButton,
   useDisclosure,
   useToast,
+  background,
 } from '@chakra-ui/react';
 import { Favorite, FavoriteBorder, Info } from '@mui/icons-material';
 import StarRatings from 'react-star-ratings';
@@ -24,6 +25,7 @@ import { getProductById } from '../services/ProductServices';
 import { addFavorite, deleteFavorite } from '../services/UserServices';
 import { getCommentByProductId } from '../services/CommentServices';
 import { getRatingByProductId } from '../services/RatingServices';
+import { getRatingByOwnerId } from '../services/RatingServices';
 import useGetUserHaveThis from '../hooks/useGetUserHaveThis';
 import { getOrdersByUserId } from '../services/OrderServices';
 import Voice from '../components/Voice';
@@ -51,23 +53,29 @@ const Product = () => {
     setIsFavorite(status);
     setSelectedLocation('Sri Lanka');
 
-    getProductById(location.state.productId).then((result) => {
-      setProduct(result.product);
-      setShipingLocations(result.product.shipingLocations);
-    });
+    getProductById(location.state.productId)
+      .then((result) => {
+        setProduct(result.product);
+        setShipingLocations(result.product.shipingLocations);
+      })
+      .catch((err) => console.log(err));
 
-    getRatingByProductId(location.state.productId).then((result) => {
-      var star = 0;
-      result.ratings.forEach((r) => {
-        star += r.rating;
-      });
-      setRatings(star / result.ratings.length || 0);
-      setRatingCount(result.ratings.length);
-    });
+    getRatingByProductId(location.state.productId)
+      .then((result) => {
+        var star = 0;
+        result.ratings.forEach((r) => {
+          star += r.rating;
+        });
+        setRatings(star / result.ratings.length || 0);
+        setRatingCount(result.ratings.length);
+      })
+      .catch((err) => console.log(err));
 
-    getCommentByProductId(location.state.productId).then((result) => {
-      setComments(result.comment);
-    });
+    getCommentByProductId(location.state.productId)
+      .then((result) => {
+        setComments(result.comment);
+      })
+      .catch((err) => console.log(err));
 
     cart.forEach((item) => {
       if (item.id === location.state.productId) {
@@ -347,16 +355,35 @@ const Product = () => {
               Write a Review
             </Button>
           </Box>
-          {comments.map((comment) => {
-            return (
-              <Comment
-                key={comment._id}
-                authorId={comment.author}
-                commentText={comment.comment}
-                createdAt={comment.createdAt}
-              />
-            );
-          })}
+          <h1
+            style={{
+              background: 'linear-gradient(135deg, #3498db, #8e44ad)',
+              fontSize: '1.6rem',
+              color: 'white',
+              padding: '20px',
+              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+              textAlign: 'center',
+            }}
+          >
+            Feedbacks
+          </h1>
+          <div
+            style={{
+              padding: '30px',
+              marginTop: '20px',
+            }}
+          >
+            {comments.map((comment) => {
+              return (
+                <Comment
+                  key={comment._id}
+                  authorId={comment.author}
+                  commentText={comment.comment}
+                  createdAt={comment.createdAt}
+                />
+              );
+            })}
+          </div>
         </Box>
       </Box>
       <ReviewModal

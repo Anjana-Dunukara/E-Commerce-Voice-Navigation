@@ -50,12 +50,14 @@ const Dropdown = ({ title, genreId }) => {
               categories.map((category) => {
                 return (
                   category.status && (
-                    <MenuItem
-                      key={category._id}
-                      onClick={() => handleClick(category._id)}
-                    >
-                      {category.name}
-                    </MenuItem>
+                    <div>
+                      <MenuItem
+                        key={category._id}
+                        onClick={() => handleClick(category._id)}
+                      >
+                        {category.name}
+                      </MenuItem>
+                    </div>
                   )
                 );
               })}

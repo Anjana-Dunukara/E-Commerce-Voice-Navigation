@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
+import { Box, Table, Thead, Tbody, Tr, Th, Td, Text } from '@chakra-ui/react';
 import moment from 'moment';
 import TableStatusInfo from './TableStatusInfo';
 import TableProductInfo from './TableProductInfo';
@@ -22,7 +22,7 @@ const OrderReportCard = (props) => {
 
   return (
     <Box bg="whitesmoke" p={3}>
-      {weeklyOrders.length > 0 && (
+      {weeklyOrders.length > 0 ? (
         <Table variant="simple">
           <Thead>
             <Tr>
@@ -64,6 +64,22 @@ const OrderReportCard = (props) => {
             })}
           </Tbody>
         </Table>
+      ) : (
+        <Box>
+          <Text
+            fontSize={{ base: '3xl', md: '4xl' }}
+            fontWeight="bold"
+            mb={4}
+            color="Blue"
+            fontFamily="sans-serif"
+            textAlign="center"
+            textTransform="uppercase"
+            borderColor="green.500"
+            pb={2}
+          >
+            No Orders This week
+          </Text>
+        </Box>
       )}
     </Box>
   );

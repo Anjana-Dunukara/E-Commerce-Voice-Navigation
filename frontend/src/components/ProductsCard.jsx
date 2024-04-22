@@ -121,6 +121,7 @@ const ProductsCard = ({ productId, isDelivered }) => {
     <>
       <Box
         width="100%"
+        height="40%"
         display="flex"
         alignItems="center"
         flexDirection="column"
@@ -168,7 +169,7 @@ const ProductsCard = ({ productId, isDelivered }) => {
               })
             }
             mb={10}
-            fontSize={18}
+            fontSize={16}
           >
             {product.description}
           </Text>
@@ -189,8 +190,16 @@ const ProductsCard = ({ productId, isDelivered }) => {
                   state: { productId: product._id },
                 })
               }
-              fontSize={26}
+              fontSize={18}
               fontWeight={500}
+              display="flex"
+              alignItems="center"
+              textAlign="center"
+              backgroundColor="#385898"
+              color="white"
+              paddingLeft="17px"
+              paddingRight="17px"
+              borderRadius="15px"
             >
               {product.price} $
             </Text>

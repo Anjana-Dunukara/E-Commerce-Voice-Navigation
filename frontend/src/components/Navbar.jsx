@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { BiSolidCategory } from 'react-icons/bi';
 import {
   Box,
   Text,
@@ -11,6 +12,9 @@ import {
   MenuButton,
   MenuGroup,
   Divider,
+  MenuItemOption,
+  MenuOptionGroup,
+  MenuDivider,
 } from '@chakra-ui/react';
 import {
   Person,
@@ -39,6 +43,7 @@ const Navbar = () => {
   const [genres, setGenres] = useState([]);
   const [open, setOpen] = useState(false);
   const [itemCount, setItemCount] = useState(0);
+  const [isFalse, setIsFalse] = useState(false);
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useUserContext();
   const { setCart, cart, refresh, setRefresh } = useCartContext();
@@ -58,6 +63,7 @@ const Navbar = () => {
       event.target !== buttonRef.current
     ) {
       setOpen(false);
+      setIsFalse(false);
     }
   };
 
@@ -102,6 +108,10 @@ const Navbar = () => {
     }
   };
 
+  const handleCategory = () => {
+    setIsFalse(!isFalse);
+  };
+
   const toggleMenu = () => {
     setOpen(!open);
   };
@@ -110,18 +120,19 @@ const Navbar = () => {
     <Box
       display="flex"
       flexDirection="column"
-      boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
+      // boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
       position="sticky"
       top="0px"
       backgroundColor="#DED7CF"
+      py={{ base: 0.5, md: 0.5 }}
       zIndex={500}
     >
       <Box
         display={'flex'}
         flexDirection={{ base: 'column', sm: 'row' }}
         justifyContent="space-between"
-        py={{ base: 1, md: 2 }}
-        px={{ base: 2, md: 5 }}
+        py={{ base: 1, md: 1 }}
+        px={{ base: 1, md: 14 }}
         width="100%"
       >
         <Box
@@ -274,21 +285,76 @@ const Navbar = () => {
       </Box>
       <Box
         display={{ base: 'none', md: 'flex' }}
-        py={{ base: 1, md: 2 }}
+        flexDirection="column"
+        py={{ base: 1, md: 1 }}
         ps={5}
         width="100%"
+        ref={menuRef}
       >
-        {genres.map((genre) => {
-          return (
-            genre.status && (
-              <Dropdown
-                key={genre.name}
-                title={genre.name}
-                genreId={genre._id}
-              />
-            )
-          );
-        })}
+        <Menu>
+          <MenuButton
+            as={Box}
+            onClick={handleCategory}
+            width="180px"
+            alignItems="center"
+            marginLeft="40px"
+            cursor="pointer"
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'black',
+                color: 'white',
+                padding: '15px',
+                width: '180px',
+              }}
+            >
+              <Box style={{ width: '170px' }} fontSize="17px" fontWeight="700">
+                CATEGORIES
+              </Box>
+              <Box>
+                <BiSolidCategory />
+              </Box>
+            </div>
+          </MenuButton>
+          <MenuList
+            width="100vw"
+            height="30vh"
+            ml="-55px"
+            mt="-5px"
+            display="flex"
+            flexDirection="row"
+            justifyContent="center"
+            alignItems="center"
+            color="black"
+            background="rgb(196,226,191) linear-gradient(90deg, rgba(196,226,191,1) 0%, rgba(244,244,244,1) 35%, rgba(119,151,157,1) 61%, rgba(241,217,130,1) 100%)"
+          >
+            {isFalse && (
+              <MenuGroup>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    gap: '80px',
+                  }}
+                >
+                  {genres.map((genre) => {
+                    return (
+                      genre.status && (
+                        <div key={genre.name} style={{ margin: '5px' }}>
+                          <Dropdown title={genre.name} genreId={genre._id} />
+                        </div>
+                      )
+                    );
+                  })}
+                </div>
+              </MenuGroup>
+            )}
+          </MenuList>
+        </Menu>
       </Box>
     </Box>
   );

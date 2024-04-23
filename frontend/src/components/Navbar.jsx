@@ -66,8 +66,8 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    if (!currentUser) {
-      navigate("/login");
+    if (!currentUser && !cart) {
+      navigate('/login');
     }
     getAllGenres().then((result) => {
       setGenres(result.allGenres);

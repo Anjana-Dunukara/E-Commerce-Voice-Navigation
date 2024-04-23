@@ -23,19 +23,21 @@ const OrderCard = ({ orderId }) => {
   const [date, setDate] = useState("");
 
   useEffect(() => {
-    getOrderById(orderId).then((result) => {
-      setProducts(result.order.products);
-      setDate(result.order.orderDate);
-      if (result.order.prepare) {
-        setOrderStatus("Order is preparing.");
-      } else if (result.order.onWay) {
-        setOrderStatus("Order is on way.");
-      } else if (result.order.delivered) {
-        setOrderStatus("Order has been delivered.");
-      } else {
-        setOrderStatus("Order canceled.");
-      }
-    });
+    getOrderById(orderId)
+      .then((result) => {
+        setProducts(result.order.products);
+        setDate(result.order.orderDate);
+        if (result.order.prepare) {
+          setOrderStatus("Order is preparing.");
+        } else if (result.order.onWay) {
+          setOrderStatus("Order is on way.");
+        } else if (result.order.delivered) {
+          setOrderStatus("Order has been delivered.");
+        } else {
+          setOrderStatus("Order canceled.");
+        }
+      })
+      .catch((err) => console.log(`Error get orders : ${err}`));
   }, [orderId]);
 
   const onClickCancel = () => {
@@ -117,17 +119,18 @@ const OrderCard = ({ orderId }) => {
           columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
           spacing={3}
         >
-          {products.map((product, index) => {
-            return (
-              product !== null && (
-                <ProductsCard
-                  key={index}
-                  productId={product.id}
-                  isDelivered={orderStatus === "Order has been delivered."}
-                />
-              )
-            );
-          })}
+          {products &&
+            products.map((product, index) => {
+              return (
+                product !== null && (
+                  <ProductsCard
+                    key={index}
+                    productId={product.id}
+                    isDelivered={orderStatus === "Order has been delivered."}
+                  />
+                )
+              );
+            })}
         </SimpleGrid>
       </Box>
       <ReportModal onClose={onClose} isOpen={isOpen} orderId={orderId} />

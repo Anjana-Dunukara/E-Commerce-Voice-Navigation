@@ -1,27 +1,28 @@
-import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Cart from "./pages/Cart";
-import Favorites from "./pages/Favorites";
-import Product from "./pages/Product";
-import Infos from "./pages/Infos";
-import Purchase from "./pages/Purchase";
-import Search from "./pages/Search";
-import Orders from "./pages/Orders";
-import Payment from "./pages/Payment";
-import OrdersforAdmin from "./pages/OrdersforAdmin";
-import CategoriesforAdmin from "./pages/CategoriesforAdmin";
-import ProductsforAdmin from "./pages/ProductsforAdmin";
-import ReportsforAdmin from "./pages/ReportsforAdmin";
-import ImagesforAdmin from "./pages/ImagesforAdmin";
-import { useUserContext } from "./contexts/UserContext";
-import useGetUserRole from "./hooks/useGetUserRole";
-import UsersforAdmin from "./pages/UsersforAdmin";
-import Reviews from "./pages/Reviews";
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Cart from './pages/Cart';
+import Favorites from './pages/Favorites';
+import Product from './pages/Product';
+import Infos from './pages/Infos';
+import Purchase from './pages/Purchase';
+import Search from './pages/Search';
+import Orders from './pages/Orders';
+import Payment from './pages/Payment';
+import OrdersforAdmin from './pages/OrdersforAdmin';
+import CategoriesforAdmin from './pages/CategoriesforAdmin';
+import ProductsforAdmin from './pages/ProductsforAdmin';
+import ReportsforAdminUsers from './pages/ReportsforAdminUsers';
+import ReportsForAdminOrders from './pages/ReportsForAdminOrders';
+import ImagesforAdmin from './pages/ImagesforAdmin';
+import { useUserContext } from './contexts/UserContext';
+import useGetUserRole from './hooks/useGetUserRole';
+import UsersforAdmin from './pages/UsersforAdmin';
+import Reviews from './pages/Reviews';
 
 const App = () => {
   const { currentUser } = useUserContext();
@@ -60,7 +61,14 @@ const App = () => {
             <Route path="/admin/categories" element={<CategoriesforAdmin />} />
             <Route path="/admin/orders" element={<OrdersforAdmin />} />
             <Route path="/admin/images" element={<ImagesforAdmin />} />
-            <Route path="/admin/reports" element={<ReportsforAdmin />} />
+            <Route
+              path="/admin/user-reports"
+              element={<ReportsforAdminUsers />}
+            />
+            <Route
+              path="/admin/order-reports"
+              element={<ReportsForAdminOrders />}
+            />
           </>
         ) : (
           <Route path="/admin/*" element={<Navigate to="/" />} />

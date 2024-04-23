@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -28,7 +28,7 @@ const Carousel = () => {
   const [slider, setSlider] = useState('');
 
   const top = useBreakpointValue({ base: '90%', sm: '50%' });
-  const side = useBreakpointValue({ base: '30%', sm: '10px' });
+  const side = useBreakpointValue({ base: '30%', sm: '10px', lg: '4%' });
 
   useEffect(() => {
     getAllImages().then((result) => {
@@ -44,7 +44,7 @@ const Carousel = () => {
     <Box
       position={'relative'}
       mt={0}
-      width={{ base: '100vw', md: '1200px' }}
+      width={{ base: '100vw', md: '100vw' }}
       overflow={'hidden'}
     >
       <IconButton
@@ -75,17 +75,46 @@ const Carousel = () => {
       <Slider {...settings} ref={(slider) => setSlider(slider)}>
         {images &&
           images.map((image, index) => (
-            <Box
-              onClick={onClickImage}
-              key={index}
-              height={{ base: '180px', sm: '400px', md: '500px', lg: '660px' }}
-              position="relative"
-              backgroundPosition="center"
-              backgroundRepeat="no-repeat"
-              backgroundSize="contain"
-              backgroundImage={`url(${image.url})`}
-              cursor="pointer"
-            />
+            <div key={index} style={{ position: 'relative' }}>
+              <Box
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '180px',
+                  transform: 'translateY(-50%)',
+                  zIndex: 2,
+                }}
+                display={{ sm: 'none', md: 'none', lg: 'block' }}
+              >
+                <h1 style={{ fontSize: '3rem', fontWeight: '900' }}>
+                  Feel Fresh
+                </h1>
+                <p
+                  style={{
+                    cursor: 'pointer',
+                    border: 'none',
+                    borderRadius: '40px',
+                    padding: '20px',
+                    width: '70%',
+                    textAlign: 'center',
+                    fontSize: '1.5rem',
+                    backgroundColor: 'greenyellow',
+                  }}
+                >
+                  <Link to="/search"> Shop Now</Link>
+                </p>
+              </Box>
+              <Box
+                onClick={onClickImage}
+                width={{ lg: '100vw' }}
+                height={{ base: '180px', sm: '400px', md: '500px', lg: '90vh' }}
+                position="relative"
+                backgroundPosition="center"
+                backgroundRepeat="no-repeat"
+                backgroundSize="cover"
+                backgroundImage={`url(${image.url})`}
+              />
+            </div>
           ))}
       </Slider>
     </Box>

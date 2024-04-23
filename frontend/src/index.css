@@ -11,11 +11,17 @@ body {
   position: relative;
 }
 
+.dropdown-transition {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
 .carousel {
   width: 100%;
   max-width: 100%;
   overflow: hidden;
 }
+
+
 
 .banner {
   width: 60%;

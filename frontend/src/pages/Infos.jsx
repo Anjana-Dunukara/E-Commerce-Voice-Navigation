@@ -18,18 +18,23 @@ import { getUserById, updateUser } from '../services/UserServices';
 
 const Infos = () => {
   const toast = useToast();
-  const { currentUser } = useUserContext();
+  const { currentUser, refresh } = useUserContext();
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
 
   useEffect(() => {
-    getUserById(currentUser)
-      .then((result) => {
-        setAddress(result.user.address);
-        setPhone(result.user.phone);
-      })
-      .catch((err) => console.log(`Error get user by id to info page: ${err}`));
-  }, [currentUser]);
+    if (!currentUser) return;
+    console.log(currentUser);
+    currentUser &&
+      getUserById(currentUser)
+        .then((result) => {
+          setAddress(result.user.address);
+          setPhone(result.user.phone);
+        })
+        .catch((err) =>
+          console.log(`Error get user by id to info page: ${err}`)
+        );
+  }, [currentUser, refresh]);
 
   const onInputPhone = (e) => {
     setPhone(e.target.value);
@@ -58,7 +63,7 @@ const Infos = () => {
           }
         })
         .catch((err) => {
-          console.log(`Error update information : ${err}`);
+          // console.log(`Error update information : ${err}`);
           toast({
             title: 'Error!',
             description: 'Error Update information',

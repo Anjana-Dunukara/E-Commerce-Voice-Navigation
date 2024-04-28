@@ -12,9 +12,6 @@ import {
   MenuButton,
   MenuGroup,
   Divider,
-  MenuItemOption,
-  MenuOptionGroup,
-  MenuDivider,
 } from "@chakra-ui/react";
 import {
   Person,
@@ -167,7 +164,7 @@ const Navbar = () => {
             {currentUser && !admin && (
               <Menu isOpen={open}>
                 <Icon fontSize={30} color="inherit" as={Person} />
-                <Text color="inherit" fontWeight={500}>
+                <Text color="inherit" fontWeight={500} ref={menuRef}>
                   Account
                 </Text>
                 <MenuButton />
@@ -201,7 +198,7 @@ const Navbar = () => {
             {admin && currentUser && (
               <Menu isOpen={open}>
                 <Icon fontSize={30} color="inherit" as={Person} />
-                <Text color="inherit" fontWeight={500}>
+                <Text color="inherit" fontWeight={500} ref={menuRef}>
                   Admin
                 </Text>
                 <MenuButton />
